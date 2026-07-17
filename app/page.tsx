@@ -4,7 +4,6 @@ import { useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
 import { Hero } from "@/components/hero";
 import { CollectionsGrid } from "@/components/collections-grid";
-import { Craftsmanship } from "@/components/craftsmanship";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +19,6 @@ export default function Home() {
       <div className="w-full flex flex-col">
         <Hero />
         <CollectionsGrid />
-        <Craftsmanship />
       </div>
     </>
   );
