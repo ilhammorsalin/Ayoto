@@ -1,19 +1,20 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
-import albaKing from "@/Assets/Furniture/Bed/Alba (King).png";
-import albaHover from "@/Assets/Furniture/Bed/Alba.png";
+import albaHD from "@/Assets/Furniture/Gemini HD/albaHD.png";
+import alba2HD from "@/Assets/Furniture/Gemini HD/alba2HD.png";
 import halo1 from "@/Assets/Furniture/Center table/Halo (1).png";
 import haloHover from "@/Assets/Furniture/Center table/Halo.png";
 import questa from "@/Assets/Furniture/tv cabinet/Questa.png";
 import questaHover from "@/Assets/Furniture/tv cabinet/Questa (1).png";
+import videoSquare from "@/Assets/videoSquare.mp4";
 
 const ITEMS = [
   {
     id: "upper-1",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-7 sm:col-start-1 sm:row-start-1",
-    src: albaKing,
-    hoverSrc: albaHover,
+    src: albaHD,
+    hoverSrc: alba2HD,
     alt: "Alba King bed",
     hoverTitle: "Alba King Bed",
     hoverSubtext: "A modern masterpiece of comfort.",
@@ -49,7 +50,7 @@ const ITEMS = [
     id: "upper-5",
     type: "video",
     desktopClass: "sm:col-span-2 sm:row-span-3 sm:col-start-6 sm:row-start-5",
-    src: "/videoSquare.mp4",
+    src: videoSquare,
     hoverTitle: "Loom Sofa",
     hoverSubtext: "Modern modular seating for any space.",
   },
@@ -88,7 +89,7 @@ export function UpperGrid() {
                 alt={item.alt ?? ""}
                 fill
                 className={`object-cover transition-opacity duration-500 ${tappedId === item.id ? "opacity-0" : "group-hover:opacity-0"}`}
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 14vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 43vw"
               />
               {"hoverSrc" in item && item.hoverSrc && (
                 <Image
@@ -96,7 +97,7 @@ export function UpperGrid() {
                   alt={(item as any).hoverTitle ?? item.alt ?? ""}
                   fill
                   className={`object-cover transition-opacity duration-500 ${tappedId === item.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 14vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 43vw"
                 />
               )}
               {("hoverTitle" in item || "hoverSubtext" in item) && (

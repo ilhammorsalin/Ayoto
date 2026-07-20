@@ -2,14 +2,15 @@ import { useState } from "react";
 import Image from "next/image";
 import oglio from "@/Assets/Furniture/divan/Oglio.png";
 import oglioHover from "@/Assets/Furniture/divan/Oglio (1).png";
-import opaline from "@/Assets/Furniture/Lounge Chair/Opaline.png";
-import opalineHover from "@/Assets/Furniture/Lounge Chair/Opaline (1).png";
+import opalineHD from "@/Assets/Furniture/Gemini HD/opalineHD.png";
+import opaline2HD from "@/Assets/Furniture/Gemini HD/opaline2HD.png";
 import kivo from "@/Assets/Furniture/Center table/Kivo.png";
 import kivoHover from "@/Assets/Furniture/Center table/Kivo (1).png";
 import serenoKing from "@/Assets/Furniture/Bed/Sereno (King).png";
 import serenoHover from "@/Assets/Furniture/Bed/Sereno.png";
 import cache from "@/Assets/Furniture/Center table/Cache.png";
 import cacheHover from "@/Assets/Furniture/Center table/Cache (1).png";
+import grid169 from "@/Assets/grid-16-9.mp4";
 
 
 const ITEMS = [
@@ -17,7 +18,7 @@ const ITEMS = [
     id: "lower-1",
     type: "video",
     desktopClass: "sm:col-span-5 sm:row-span-4 sm:col-start-1 sm:row-start-1",
-    src: "/grid-16-9.mp4",
+    src: grid169,
     hoverTitle: "Loom Sofa",
     hoverSubtext: "Modern modular seating for any space.",
   },
@@ -25,8 +26,8 @@ const ITEMS = [
     id: "lower-2",
     type: "photo",
     desktopClass: "sm:col-span-3 sm:row-span-3 sm:col-start-1 sm:row-start-8",
-    src: opaline,
-    hoverSrc: opalineHover,
+    src: opalineHD,
+    hoverSrc: opaline2HD,
     alt: "Opaline lounge chair",
     hoverTitle: "Opaline Lounge Chair",
     hoverSubtext: "Premium fabric and timeless silhouette.",
@@ -104,7 +105,7 @@ export function LowerGrid() {
                 alt={item.alt ?? ""}
                 fill
                 className={`object-cover transition-opacity duration-500 ${tappedId === item.id ? "opacity-0" : "group-hover:opacity-0"}`}
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 14vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 43vw"
               />
               {"hoverSrc" in item && item.hoverSrc && (
                 <Image
@@ -112,7 +113,7 @@ export function LowerGrid() {
                   alt={(item as any).hoverTitle ?? item.alt ?? ""}
                   fill
                   className={`object-cover transition-opacity duration-500 ${tappedId === item.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 14vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 43vw"
                 />
               )}
               {("hoverTitle" in item || "hoverSubtext" in item) && (

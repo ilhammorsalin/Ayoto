@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import Image from "next/image";
+import haloImage from "@/Assets/Furniture/Center table/Halo.png";
 
 const STATEMENTS = [
   "We begin where it matters — with the material itself. Honest wood, natural fiber, stone that has known the earth.",
@@ -72,7 +73,7 @@ export function ScrollNarrative() {
           className="absolute inset-0 z-0 select-none pointer-events-none"
         >
           <Image
-            src="/images/halo.png"
+            src={haloImage}
             alt="Wood texture atmosphere"
             fill
             className="object-cover blur-sm"

@@ -13,13 +13,13 @@ const crimsonPro = Crimson_Pro({
 });
 
 const overcame = localFont({
-  src: "../public/fonts/OvercameDemoRegular.ttf",
+  src: "../Assets/OvercameDemoRegular.ttf",
   variable: "--font-overcame",
   display: "swap",
 });
 
 const montserratExtraLight = localFont({
-  src: "../public/fonts/montserrat.extralight.ttf",
+  src: "../Assets/montserrat.extralight.ttf",
   variable: "--font-montserrat-el",
   display: "swap",
 });
