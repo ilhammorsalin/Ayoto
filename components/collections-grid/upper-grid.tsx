@@ -121,13 +121,12 @@ export function UpperGrid() {
           ) : "src" in item && item.src ? (
             <div
               className="relative w-full h-full"
-              onMouseEnter={() => videoRef.current?.play()}
-              onMouseLeave={() => videoRef.current?.pause()}
               onTouchStart={(e) => { e.preventDefault(); toggleVideo(); }}
             >
               <video
                 ref={videoRef}
                 src={item.src as string}
+                autoPlay
                 muted
                 playsInline
                 loop

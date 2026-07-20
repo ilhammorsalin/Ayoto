@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Option 3 — Side Rail Mega-Menu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f0eb; color: #1a1a1a; min-height: 100vh; }
+
+    /* ── LAYOUT WRAPPER ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ══════════════════════════════
+       VERTICAL SIDE RAIL
+    ══════════════════════════════ */
+    .side-rail {
+      width: 72px;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0;
+      gap: 4px;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 200;
+    }
+    .rail-logo {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      color: #c8a97e;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      margin-bottom: 20px;
+      padding: 10px 0;
+    }
+    .rail-item {
+      width: 56px;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .rail-item:hover { background: #2a2a2a; }
+    .rail-item.active { background: #c8a97e22; }
+    .rail-icon { font-size: 18px; }
+    .rail-label {
+      font-size: 7.5px;
+      color: #888;
+      letter-spacing: .08em;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .rail-item.active .rail-label { color: #c8a97e; }
+    .rail-divider {
+      width: 32px;
+      height: 1px;
+      background: #333;
+      margin: 6px 0;
+    }
+
+    /* ══════════════════════════════
+       MAIN CONTENT AREA
+    ══════════════════════════════ */
+    .main-area {
+      margin-left: 72px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      border-bottom: 1px solid #e8e2da;
+    }
+    .search-bar {
+      background: #f5f0eb;
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 11px;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 300px;
+    }
+    .utility-icons {
+      display: flex;
+      gap: 10px;
+    }
+    .icon-box {
+      width: 30px; height: 30px;
+      background: #f5f0eb;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* FLY-OUT PANEL (shown when "Shop" is hovered) */
+    .flyout {
+      position: fixed;
+      top: 0; left: 72px; bottom: 0;
+      width: 320px;
+      background: #fff;
+      border-right: 1px solid #e8e2da;
+      padding: 24px 20px;
+      z-index: 150;
+      box-shadow: 4px 0 20px rgba(0,0,0,.07);
+    }
+    .flyout-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #c8a97e;
+      margin-bottom: 20px;
+    }
+    .flyout-section { margin-bottom: 20px; }
+    .flyout-section-label {
+      font-size: 8px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 8px;
+    }
+    .flyout-links { display: flex; flex-direction: column; gap: 4px; }
+    .flyout-link {
+      background: #f5f0eb;
+      border-radius: 4px;
+      padding: 7px 12px;
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* PAGE CONTENT */
+    .page-content {
+      padding: 32px 28px;
+    }
+    .hero {
+      background: #e8e0d5;
+      border-radius: 8px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: .08em;
+      margin-bottom: 24px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+      border: 1px solid #e8e2da;
+    }
+
+    /* LEGEND */
+    .legend {
+      padding: 36px 28px 64px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+    .subtitle { font-size: 12px; color: #888; margin-bottom: 18px; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    li { font-size: 12px; color: #555; padding-left: 14px; position: relative; }
+    li::before { content: '▸'; position: absolute; left: 0; color: #c8a97e; }
+
+    .note {
+      margin-top: 16px;
+      background: #fffbe8;
+      border-left: 3px solid #c8a97e;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #666;
+      border-radius: 0 4px 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="layout">
+    <!-- SIDE RAIL -->
+    <div class="side-rail">
+      <div class="rail-logo">AYOTO</div>
+      <div class="rail-item active">
+        <div class="rail-icon">🏠</div>
+        <div class="rail-label">Home</div>
+      </div>
+      <div class="rail-item">
+        <div class="rail-icon">🛋️</div>
+        <div class="rail-label">Shop</div>
+      </div>
+      <div class="rail-item">
+        <div class="rail-icon">✏️</div>
+        <div class="rail-label">Design</div>
+      </div>
+      <div class="rail-divider"></div>
+      <div class="rail-item">
+        <div class="rail-icon">📖</div>
+        <div class="rail-label">Catalog</div>
+      </div>
+      <div class="rail-item">
+        <div class="rail-icon">💡</div>
+        <div class="rail-label">Inspire</div>
+      </div>
+      <div class="rail-item">
+        <div class="rail-icon">🏷️</div>
+        <div class="rail-label">Events</div>
+      </div>
+      <div class="rail-divider"></div>
+      <div class="rail-item">
+        <div class="rail-icon">📍</div>
+        <div class="rail-label">Locations</div>
+      </div>
+      <div class="rail-item">
+        <div class="rail-icon">ℹ️</div>
+        <div class="rail-label">About</div>
+      </div>
+    </div>
+
+    <!-- FLY-OUT (simulating "Shop" hover) -->
+    <div class="flyout">
+      <div class="flyout-title">← hover "Shop" to open this panel</div>
+
+      <div class="flyout-section">
+        <div class="flyout-section-label">By Furniture</div>
+        <div class="flyout-links">
+          <div class="flyout-link">Sofa</div>
+          <div class="flyout-link">Divan</div>
+          <div class="flyout-link">Lounge Chair</div>
+          <div class="flyout-link">Center Table</div>
+          <div class="flyout-link">TV Cabinet</div>
+          <div class="flyout-link">Bed</div>
+          <div class="flyout-link">Tables</div>
+        </div>
+      </div>
+
+      <div class="flyout-section">
+        <div class="flyout-section-label">By Room</div>
+        <div class="flyout-links">
+          <div class="flyout-link">Living Room</div>
+          <div class="flyout-link">Bedroom</div>
+          <div class="flyout-link">Kitchen + Dining</div>
+          <div class="flyout-link">Home Office</div>
+          <div class="flyout-link">Entryway</div>
+        </div>
+      </div>
+
+      <div class="flyout-section">
+        <div class="flyout-section-label">By Theme</div>
+        <div class="flyout-links">
+          <div class="flyout-link">Best Seller</div>
+          <div class="flyout-link">New Arrival</div>
+          <div class="flyout-link">Classics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN AREA -->
+    <div class="main-area" style="margin-left: calc(72px + 320px);">
+      <!-- TOP BAR -->
+      <div class="top-bar">
+        <div class="search-bar">🔍 &nbsp; Search furniture, rooms, styles…</div>
+        <div class="utility-icons">
+          <div class="icon-box">♡</div>
+          <div class="icon-box">🛒</div>
+          <div class="icon-box">👤</div>
+        </div>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content">
+        <div class="hero">[ HERO SECTION — content area gets full width minus rail ]</div>
+        <div class="cards">
+          <div class="card">Product Card</div>
+          <div class="card">Product Card</div>
+          <div class="card">Product Card</div>
+        </div>
+      </div>
+
+      <!-- LEGEND -->
+      <div class="legend">
+        <div class="badge">Option 3</div>
+        <h1>Vertical Side Rail + Fly-Out</h1>
+        <p class="subtitle">Inspired by: Arc browser, luxury portals</p>
+        <ul>
+          <li><strong>Left rail (72px)</strong> — Fixed vertical strip with icon + label nav. Logo runs vertically. Never hides.</li>
+          <li><strong>Top bar (52px)</strong> — Slim bar with full-width search + utility icons. No logo (it's in the rail).</li>
+          <li><strong>Fly-out panel</strong> — Slides in from the rail when "Shop" is selected, showing By Furniture / By Room / By Theme.</li>
+          <li>Content area is pushed right by rail width — maximises vertical reading space.</li>
+          <li><strong>Best for:</strong> Ultra-unique, architectural feel. Great for a brand that wants to stand out completely.</li>
+        </ul>
+        <div class="note">⚠ This option requires significant layout changes — all pages need left padding of 72px.</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

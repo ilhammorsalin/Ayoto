@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Option 1 — Luxury 3-Tier Navbar</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f0eb; color: #1a1a1a; }
+
+    /* ── LABELS ── */
+    .label {
+      position: absolute;
+      top: -22px;
+      left: 0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .rel { position: relative; }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar { position: sticky; top: 0; z-index: 100; }
+
+    /* ROW 0 — Utility strip */
+    .row0 {
+      background: #1a1a1a;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .row0 .left-links { display: flex; gap: 20px; }
+    .row0 .right-icons { display: flex; gap: 14px; }
+    .chip {
+      background: #333;
+      border-radius: 3px;
+      padding: 3px 10px;
+      font-size: 10px;
+      color: #ccc;
+      letter-spacing: .08em;
+    }
+    .icon-box {
+      width: 22px; height: 22px;
+      background: #444;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+    }
+
+    /* ROW 1 — Brand bar */
+    .row1 {
+      background: #fff;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid #e8e2da;
+    }
+    .logo-box {
+      background: #c8a97e;
+      border-radius: 4px;
+      padding: 8px 24px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      color: #fff;
+    }
+    .primary-links { display: flex; gap: 6px; }
+    .plink {
+      background: #f5f0eb;
+      border-radius: 4px;
+      padding: 7px 14px;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: .06em;
+    }
+
+    /* ROW 2 — Category bar */
+    .row2 {
+      background: #faf7f4;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-bottom: 1px solid #e8e2da;
+      padding: 0 32px;
+    }
+    .catlink {
+      background: #ede8e1;
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 10px;
+      color: #555;
+      letter-spacing: .1em;
+    }
+    .catlink.accent {
+      background: #c8a97e;
+      color: #fff;
+    }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 960px;
+      margin: 48px auto;
+      padding: 0 32px;
+    }
+    .hero {
+      background: #e8e0d5;
+      border-radius: 8px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: .08em;
+      margin-bottom: 32px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      height: 120px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+      border: 1px solid #e8e2da;
+    }
+
+    /* ── ANNOTATIONS ── */
+    .legend {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 32px 64px;
+    }
+    .legend h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c8a97e; margin-bottom: 12px; }
+    .legend ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .legend li { font-size: 12px; color: #555; padding-left: 14px; position: relative; }
+    .legend li::before { content: '▸'; position: absolute; left: 0; color: #c8a97e; }
+
+    .badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 22px; font-weight: 800; letter-spacing: .02em; color: #1a1a1a; margin-bottom: 6px; }
+    .subtitle { font-size: 12px; color: #888; margin-bottom: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <!-- ROW 0 -->
+    <div class="row0 rel">
+      <div class="label">ROW 0 — Utility strip (always visible, 30px)</div>
+      <div class="left-links">
+        <div class="chip">Locations</div>
+        <div class="chip">Partnership</div>
+        <div class="chip">Showcase Events</div>
+      </div>
+      <div class="right-icons">
+        <div class="icon-box">🔍</div>
+        <div class="icon-box">♡</div>
+        <div class="icon-box">🛒</div>
+        <div class="icon-box">👤</div>
+      </div>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="row1">
+      <div class="logo-box">AYOTO</div>
+      <div class="primary-links">
+        <div class="plink">Design Services</div>
+        <div class="plink">Catalog</div>
+        <div class="plink">Inspiration</div>
+        <div class="plink">About Us</div>
+        <div class="plink">Contact</div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="row2">
+      <div class="catlink accent">New Arrival</div>
+      <div class="catlink">By Furniture ▾</div>
+      <div class="catlink">By Room ▾</div>
+      <div class="catlink">Best Seller</div>
+      <div class="catlink">Classics</div>
+      <div class="catlink">Modular Kitchen</div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+    <div class="hero">[ HERO SECTION — e.g. full-width image ]</div>
+    <div class="cards">
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="badge">Option 1</div>
+    <h1>Luxury 3-Tier Navbar</h1>
+    <p class="subtitle">Inspired by: IKEA, Minotti, B&B Italia</p>
+    <ul>
+      <li><strong>ROW 0</strong> — Thin utility strip (always visible). Holds context links (Locations, Partnership, Showcase) and all utility icons.</li>
+      <li><strong>ROW 1</strong> — Main brand bar with logo + primary page links. Goes opaque on scroll.</li>
+      <li><strong>ROW 2</strong> — Browse/shop category bar. Hides when scrolling down, returns on scroll-up.</li>
+      <li><strong>Best for:</strong> Familiar luxury e-commerce feel, great for users who want to browse categories first.</li>
+    </ul>
+  </div>
+
+</body>
+</html>

@@ -139,7 +139,7 @@ export function LowerGrid() {
                   className="w-full h-full object-cover"
                 />
                 {("hoverTitle" in item || "hoverSubtext" in item) && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-end p-6">
+                  <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end p-6 transition-opacity duration-500 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100">
                     <h3 className="font-serif text-2xl text-white">{(item as any).hoverTitle}</h3>
                     <p className="text-white/90 text-sm mt-1">{(item as any).hoverSubtext}</p>
                   </div>

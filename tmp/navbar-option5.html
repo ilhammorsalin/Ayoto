@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Option 5 — Tab-Based Category Takeover</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f0eb; color: #1a1a1a; }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #e8e2da;
+    }
+
+    /* ROW 1 */
+    .row1 {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo-box {
+      background: #c8a97e;
+      border-radius: 4px;
+      padding: 9px 22px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .row1-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 32px;
+    }
+    .r1link {
+      background: #f5f0eb;
+      border-radius: 4px;
+      padding: 7px 14px;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: .06em;
+      cursor: pointer;
+    }
+    .r1link.cta {
+      background: #1a1a1a;
+      color: #c8a97e;
+      font-weight: 700;
+    }
+    .utility-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .icon-box {
+      width: 32px; height: 32px;
+      background: #f5f0eb;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    /* ROW 2 — TABS */
+    .row2 {
+      border-top: 1px solid #e8e2da;
+      overflow: hidden;
+    }
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .tab {
+      padding: 10px 18px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color .15s, border-color .15s;
+      user-select: none;
+    }
+    .tab:hover { color: #333; border-bottom-color: #ccc; }
+    .tab.active { color: #1a1a1a; border-bottom-color: #c8a97e; }
+    .tab.accent { color: #c8a97e; }
+    .tab.accent.active { border-bottom-color: #c8a97e; }
+
+    /* PANEL — slides in below tabs */
+    .panel {
+      display: none;
+      background: #fff;
+      border-top: 1px solid #f0ebe4;
+      border-bottom: 1px solid #e8e2da;
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    .panel.visible { display: block; }
+    .panel-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .panel-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #c8a97e;
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+    .panel-card {
+      background: #f5f0eb;
+      border-radius: 6px;
+      width: 120px;
+      height: 80px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .panel-card:hover { background: #ede8e1; }
+    .panel-card-icon { font-size: 24px; }
+    .panel-card-label {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: .06em;
+      text-align: center;
+    }
+    .panel-viewall {
+      margin-left: auto;
+      background: #1a1a1a;
+      color: #fff;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 10px;
+      letter-spacing: .1em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 1200px;
+      margin: 48px auto;
+      padding: 0 32px;
+    }
+    .hero {
+      background: #e8e0d5;
+      border-radius: 8px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: .08em;
+      margin-bottom: 28px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+      border: 1px solid #e8e2da;
+    }
+
+    /* LEGEND */
+    .legend {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 32px 64px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+    .subtitle { font-size: 12px; color: #888; margin-bottom: 18px; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    li { font-size: 12px; color: #555; padding-left: 14px; position: relative; }
+    li::before { content: '▸'; position: absolute; left: 0; color: #c8a97e; }
+    .hint {
+      margin-top: 16px;
+      background: #e8f4e8;
+      border-left: 3px solid #5a9e5a;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #3a6a3a;
+      border-radius: 0 4px 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <!-- ROW 1 -->
+    <div class="row1">
+      <div class="logo-box">AYOTO</div>
+      <div class="row1-links">
+        <div class="r1link">Inspiration</div>
+        <div class="r1link">Catalog</div>
+        <div class="r1link">Locations</div>
+        <div class="r1link">Showcase Events</div>
+        <div class="r1link">About Us</div>
+        <div class="r1link cta">✏ Design Services</div>
+      </div>
+      <div class="utility-icons">
+        <div class="icon-box">🔍</div>
+        <div class="icon-box">♡</div>
+        <div class="icon-box">🛒</div>
+        <div class="icon-box">👤</div>
+      </div>
+    </div>
+
+    <!-- ROW 2 — TABS -->
+    <div class="row2">
+      <div class="tabs-container">
+        <div class="tab accent active" onclick="switchTab('bestseller', this)">🔥 Best Seller</div>
+        <div class="tab" onclick="switchTab('new', this)">✦ New Arrival</div>
+        <div class="tab" onclick="switchTab('classics', this)">◈ Classics</div>
+        <div class="tab" onclick="switchTab('furniture', this)">By Furniture</div>
+        <div class="tab" onclick="switchTab('room', this)">By Room</div>
+        <div class="tab" onclick="switchTab('bedroom', this)">Bedroom</div>
+        <div class="tab" onclick="switchTab('kitchen', this)">Kitchen + Dining</div>
+        <div class="tab" onclick="switchTab('modular', this)">Modular Kitchen</div>
+      </div>
+    </div>
+
+    <!-- PANEL — changes with active tab -->
+    <div class="panel visible" id="panel-bestseller">
+      <div class="panel-inner">
+        <div class="panel-label">Best Sellers →</div>
+        <div class="panel-card"><div class="panel-card-icon">🛋️</div><div class="panel-card-label">Sofa</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Lounge Chair</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🛏️</div><div class="panel-card-label">Bed</div></div>
+        <div class="panel-card"><div class="panel-card-icon">📺</div><div class="panel-card-label">TV Cabinet</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Divan</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-new">
+      <div class="panel-inner">
+        <div class="panel-label">New Arrivals →</div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Study Desk</div></div>
+        <div class="panel-card"><div class="panel-card-icon">☕</div><div class="panel-card-label">Center Table</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🛋️</div><div class="panel-card-label">Sofa</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-classics">
+      <div class="panel-inner">
+        <div class="panel-label">Classics →</div>
+        <div class="panel-card"><div class="panel-card-icon">🛏️</div><div class="panel-card-label">Bed</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🛋️</div><div class="panel-card-label">Sofa</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪞</div><div class="panel-card-label">Dressing Unit</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-furniture">
+      <div class="panel-inner">
+        <div class="panel-label">Furniture Types →</div>
+        <div class="panel-card"><div class="panel-card-icon">🛋️</div><div class="panel-card-label">Sofa</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Divan</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Lounge Chair</div></div>
+        <div class="panel-card"><div class="panel-card-icon">☕</div><div class="panel-card-label">Center Table</div></div>
+        <div class="panel-card"><div class="panel-card-icon">📺</div><div class="panel-card-label">TV Cabinet</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🛏️</div><div class="panel-card-label">Bed</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🍽️</div><div class="panel-card-label">Tables</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-room">
+      <div class="panel-inner">
+        <div class="panel-label">By Room →</div>
+        <div class="panel-card"><div class="panel-card-icon">🛋️</div><div class="panel-card-label">Living Room</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🛏️</div><div class="panel-card-label">Bedroom</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🍳</div><div class="panel-card-label">Kitchen + Dining</div></div>
+        <div class="panel-card"><div class="panel-card-icon">💻</div><div class="panel-card-label">Home Office</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🚪</div><div class="panel-card-label">Entryway</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-bedroom">
+      <div class="panel-inner">
+        <div class="panel-label">Bedroom →</div>
+        <div class="panel-card"><div class="panel-card-icon">🛏️</div><div class="panel-card-label">Bed</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪞</div><div class="panel-card-label">Dressing Unit</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🗄️</div><div class="panel-card-label">Storage</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🌙</div><div class="panel-card-label">Nightstand</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-kitchen">
+      <div class="panel-inner">
+        <div class="panel-label">Kitchen + Dining →</div>
+        <div class="panel-card"><div class="panel-card-icon">🍽️</div><div class="panel-card-label">Dining Table</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🪑</div><div class="panel-card-label">Chair</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🍵</div><div class="panel-card-label">Tea Trolley</div></div>
+        <div class="panel-card"><div class="panel-card-icon">🗄️</div><div class="panel-card-label">Storage</div></div>
+        <div class="panel-viewall">View All →</div>
+      </div>
+    </div>
+    <div class="panel" id="panel-modular">
+      <div class="panel-inner">
+        <div class="panel-label">Modular Kitchen →</div>
+        <div class="panel-card" style="background:#c8a97e22; border: 1px solid #c8a97e44"><div class="panel-card-icon">🍳</div><div class="panel-card-label">Design a Kitchen</div></div>
+        <div class="panel-card"><div class="panel-card-icon">📅</div><div class="panel-card-label">Book Appointment</div></div>
+        <div class="panel-card"><div class="panel-card-icon">💬</div><div class="panel-card-label">Chat with Designer</div></div>
+        <div class="panel-viewall" style="background:#c8a97e">Book Appointment →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+    <div class="hero">[ HERO SECTION — click the tabs above to switch the preview panel ]</div>
+    <div class="cards">
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="badge">Option 5</div>
+    <h1>Tab-Based Category Takeover</h1>
+    <p class="subtitle">Inspired by: Net-a-Porter, luxury interiors portals</p>
+    <ul>
+      <li><strong>ROW 1</strong> — Logo + primary links (Inspiration, Catalog, Locations, Showcase, About). Design Services as a standout CTA button. Utility icons far-right.</li>
+      <li><strong>ROW 2</strong> — Horizontal tab strip: Best Seller · New Arrival · Classics · By Furniture · By Room · Bedroom · Kitchen · Modular Kitchen. Hides on scroll-down.</li>
+      <li><strong>PANEL</strong> — When a tab is clicked, a visual sub-panel slides under showing furniture type cards with icons/thumbnails. Not a dropdown — it's a persistent strip.</li>
+      <li>Modular Kitchen tab opens a special panel with "Book Appointment" CTA in brand color.</li>
+      <li>In production, panel cards would show real product thumbnail images from the catalog.</li>
+      <li><strong>Best for:</strong> Immersive, visual browsing. Feels like a catalog itself. Extremely differentiating.</li>
+    </ul>
+    <div class="hint">✔ Click each tab above to see the live panel switch in action.</div>
+  </div>
+
+  <script>
+    function switchTab(id, el) {
+      // Update active tab
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+
+      // Update visible panel
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('visible'));
+      document.getElementById('panel-' + id).classList.add('visible');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Option 2 — Centered Logo, Split Arms</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f0eb; color: #1a1a1a; }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar { position: sticky; top: 0; z-index: 100; }
+
+    /* ROW 1 — Centered logo, 3 links each side */
+    .row1 {
+      background: #fff;
+      height: 72px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 32px;
+      border-bottom: 1px solid #e8e2da;
+    }
+
+    .arm-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-start;
+    }
+    .arm-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .logo-center {
+      background: #c8a97e;
+      border-radius: 4px;
+      padding: 10px 28px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      color: #fff;
+      text-align: center;
+    }
+
+    .plink {
+      background: #f5f0eb;
+      border-radius: 4px;
+      padding: 7px 12px;
+      font-size: 10px;
+      color: #444;
+      letter-spacing: .07em;
+      white-space: nowrap;
+    }
+    .icon-row {
+      display: flex;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-box {
+      width: 26px; height: 26px;
+      background: #f0ebe4;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #888;
+    }
+
+    /* ROW 2 — Category bar */
+    .row2 {
+      background: #faf7f4;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-bottom: 1px solid #e8e2da;
+    }
+    .catlink {
+      background: #ede8e1;
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 10px;
+      color: #555;
+      letter-spacing: .1em;
+    }
+    .catlink.accent { background: #c8a97e; color: #fff; }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 960px;
+      margin: 48px auto;
+      padding: 0 32px;
+    }
+    .hero {
+      background: #e8e0d5;
+      border-radius: 8px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: .08em;
+      margin-bottom: 32px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      height: 120px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+      border: 1px solid #e8e2da;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 32px 64px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 6px; }
+    .subtitle { font-size: 12px; color: #888; margin-bottom: 24px; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    li { font-size: 12px; color: #555; padding-left: 14px; position: relative; }
+    li::before { content: '▸'; position: absolute; left: 0; color: #c8a97e; }
+
+    /* annotation arrows */
+    .annotations {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0 8px;
+      flex-wrap: wrap;
+    }
+    .ann {
+      font-size: 10px;
+      background: #fff;
+      border: 1px solid #e8e2da;
+      border-radius: 4px;
+      padding: 4px 10px;
+      color: #777;
+    }
+    .ann span { color: #c8a97e; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <!-- ROW 1 — Centered Logo -->
+    <div class="row1">
+      <div class="arm-left">
+        <div class="plink">Catalog</div>
+        <div class="plink">Inspiration</div>
+        <div class="plink">Showcase Events</div>
+      </div>
+
+      <div class="logo-center">AYOTO</div>
+
+      <div class="arm-right">
+        <div class="plink">Design Services</div>
+        <div class="plink">Locations</div>
+        <div class="plink">About Us</div>
+        <div class="icon-row">
+          <div class="icon-box">🔍</div>
+          <div class="icon-box">♡</div>
+          <div class="icon-box">🛒</div>
+          <div class="icon-box">👤</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 — Category bar -->
+    <div class="row2">
+      <div class="catlink accent">Best Seller</div>
+      <div class="catlink">New Arrival</div>
+      <div class="catlink">Classics</div>
+      <div class="catlink">By Furniture ▾</div>
+      <div class="catlink">By Room ▾</div>
+      <div class="catlink">Modular Kitchen</div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="hero">[ HERO SECTION ]</div>
+    <div class="cards">
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="badge">Option 2</div>
+    <h1>Centered Logo, Split Arms</h1>
+    <p class="subtitle">Inspired by: Restoration Hardware, Poliform</p>
+
+    <div class="annotations">
+      <div class="ann"><span>LEFT ARM</span> — Catalog · Inspiration · Showcase Events</div>
+      <div class="ann"><span>CENTER</span> — AYOTO Logo (always centered)</div>
+      <div class="ann"><span>RIGHT ARM</span> — Design Services · Locations · About + utility icons</div>
+      <div class="ann"><span>ROW 2</span> — Theme / Category tabs (hides on scroll-down)</div>
+    </div>
+
+    <ul>
+      <li>Logo is perfectly centered — very editorial and premium.</li>
+      <li>Discovery links (Catalog, Inspiration) go left; service links (Design, Locations) go right — logical information flow.</li>
+      <li>Utility icons (search, wishlist, cart, profile) pinned to far right.</li>
+      <li>Row 2 browse bar hides on scroll-down and returns on scroll-up.</li>
+      <li><strong>Best for:</strong> Timeless, symmetrical luxury furniture brand aesthetics.</li>
+    </ul>
+  </div>
+
+</body>
+</html>

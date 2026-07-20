@@ -14,12 +14,12 @@ export function CollectionContent({
   category: Category;
   products: Product[];
 }) {
-  const [columns, setColumns] = useState<3 | 4>(4);
+  const [columns, setColumns] = useState<3 | 4>(3);
 
   return (
     <>
       {/* Subcategory nav + toolbar row */}
-      <div className="max-w-7xl mx-auto px-6 pb-6">
+      <div className="max-w-7xl mx-12 px-1 pb-6">
         <div className="flex items-center justify-between">
           <SubcategoryNav category={category} />
           <Toolbar columns={columns} onChangeColumns={setColumns} />

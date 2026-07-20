@@ -22,7 +22,7 @@ export function ProductGrid({
 
   return (
     <div
-      className={`w-full px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 ${columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"} gap-x-4 gap-y-8`}
+      className={`w-full px-1 md:px-1 grid grid-cols-1 md:grid-cols-2 ${columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"} gap-x-1 gap-y-8`}
     >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />

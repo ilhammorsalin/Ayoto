@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Option 4 — Single Smart Bar + Mega-Menu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f0eb; color: #1a1a1a; }
+
+    /* ══════════════════════════════
+       SINGLE NAVBAR ROW
+    ══════════════════════════════ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #e8e2da;
+    }
+
+    .nav-row {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-box {
+      background: #c8a97e;
+      border-radius: 4px;
+      padding: 9px 22px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* Grouped dropdown triggers */
+    .nav-groups {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 32px;
+    }
+    .nav-group {
+      position: relative;
+    }
+    .nav-group-btn {
+      background: #f5f0eb;
+      border-radius: 5px;
+      padding: 8px 16px;
+      font-size: 11px;
+      color: #333;
+      letter-spacing: .06em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+    .nav-group-btn .arr { font-size: 8px; color: #aaa; }
+    .nav-group:hover .nav-group-btn {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .nav-group:hover .arr { color: #c8a97e; }
+
+    /* MEGA MENU */
+    .mega-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #e8e2da;
+      border-radius: 8px;
+      box-shadow: 0 12px 48px rgba(0,0,0,.10);
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      transform: translateX(-50%) translateY(-8px);
+      z-index: 200;
+      min-width: 560px;
+    }
+    .nav-group:hover .mega-menu {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .mega-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .mega-col-title {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #c8a97e;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f0ebe4;
+    }
+    .mega-links { display: flex; flex-direction: column; gap: 3px; }
+    .mega-link {
+      font-size: 11px;
+      color: #555;
+      padding: 5px 8px;
+      border-radius: 4px;
+      background: #faf7f4;
+    }
+    .mega-link.featured {
+      background: #c8a97e;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* simple mega for services */
+    .simple-mega { min-width: 240px; }
+    .simple-mega .mega-links { gap: 5px; }
+
+    /* utility icons */
+    .utility-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .icon-box {
+      width: 32px; height: 32px;
+      background: #f5f0eb;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .icon-box:hover { background: #1a1a1a; }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 1200px;
+      margin: 48px auto;
+      padding: 0 32px;
+    }
+    .hero {
+      background: #e8e0d5;
+      border-radius: 8px;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: .08em;
+      margin-bottom: 28px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #aaa;
+      border: 1px solid #e8e2da;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 32px 64px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+    .subtitle { font-size: 12px; color: #888; margin-bottom: 18px; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    li { font-size: 12px; color: #555; padding-left: 14px; position: relative; }
+    li::before { content: '▸'; position: absolute; left: 0; color: #c8a97e; }
+    .hint {
+      margin-top: 16px;
+      background: #e8f4e8;
+      border-left: 3px solid #5a9e5a;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #3a6a3a;
+      border-radius: 0 4px 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="nav-row">
+      <!-- Logo -->
+      <div class="logo-box">AYOTO</div>
+
+      <!-- Nav Groups -->
+      <div class="nav-groups">
+
+        <!-- SHOP GROUP -->
+        <div class="nav-group">
+          <div class="nav-group-btn">Shop <span class="arr">▾</span></div>
+          <div class="mega-menu">
+            <div class="mega-cols">
+              <div>
+                <div class="mega-col-title">By Furniture</div>
+                <div class="mega-links">
+                  <div class="mega-link">Sofa</div>
+                  <div class="mega-link">Divan</div>
+                  <div class="mega-link">Lounge Chair</div>
+                  <div class="mega-link">Center Table</div>
+                  <div class="mega-link">TV Cabinet</div>
+                  <div class="mega-link">Bed</div>
+                  <div class="mega-link">Tables</div>
+                  <div class="mega-link featured">✦ Modular Kitchen</div>
+                </div>
+              </div>
+              <div>
+                <div class="mega-col-title">By Room</div>
+                <div class="mega-links">
+                  <div class="mega-link">Living Room</div>
+                  <div class="mega-link">Bedroom</div>
+                  <div class="mega-link">Kitchen + Dining</div>
+                  <div class="mega-link">Home Office</div>
+                  <div class="mega-link">Entryway + Hallway</div>
+                </div>
+              </div>
+              <div>
+                <div class="mega-col-title">By Theme</div>
+                <div class="mega-links">
+                  <div class="mega-link featured">🔥 Best Seller</div>
+                  <div class="mega-link">✦ New Arrival</div>
+                  <div class="mega-link">◈ Classics</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVICES GROUP -->
+        <div class="nav-group">
+          <div class="nav-group-btn">Services <span class="arr">▾</span></div>
+          <div class="mega-menu simple-mega">
+            <div>
+              <div class="mega-col-title">Services</div>
+              <div class="mega-links">
+                <div class="mega-link featured">✏ Design Services — Book Appointment</div>
+                <div class="mega-link">💬 Chat with a Designer</div>
+                <div class="mega-link">🍳 Modular Kitchen — Book Appointment</div>
+                <div class="mega-link">📖 Catalog</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DISCOVER GROUP -->
+        <div class="nav-group">
+          <div class="nav-group-btn">Discover <span class="arr">▾</span></div>
+          <div class="mega-menu simple-mega">
+            <div>
+              <div class="mega-col-title">Discover</div>
+              <div class="mega-links">
+                <div class="mega-link">💡 Inspiration</div>
+                <div class="mega-link">🏷 Showcase Events</div>
+                <div class="mega-link">📖 Catalog</div>
+                <div class="mega-link">🤝 Partnership</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPANY GROUP -->
+        <div class="nav-group">
+          <div class="nav-group-btn">Company <span class="arr">▾</span></div>
+          <div class="mega-menu simple-mega">
+            <div>
+              <div class="mega-col-title">Company</div>
+              <div class="mega-links">
+                <div class="mega-link">ℹ About Us</div>
+                <div class="mega-link">📍 Locations</div>
+                <div class="mega-link">✉ Contact</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Utility Icons -->
+      <div class="utility-icons">
+        <div class="icon-box">🔍</div>
+        <div class="icon-box">♡</div>
+        <div class="icon-box">🛒</div>
+        <div class="icon-box">👤</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="hero">[ HERO SECTION — hover the nav groups above to see mega-menus ]</div>
+    <div class="cards">
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+      <div class="card">Product Card</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="badge">Option 4</div>
+    <h1>Single Smart Bar + Mega-Menus</h1>
+    <p class="subtitle">Inspired by: Apple, Muuto, Hem.com</p>
+    <ul>
+      <li><strong>Single row only</strong> — no Row 2. Everything lives in grouped dropdown mega-menus.</li>
+      <li><strong>Shop ▾</strong> — Full mega-menu: By Furniture / By Room / By Theme in 3 columns. Modular Kitchen highlighted as featured.</li>
+      <li><strong>Services ▾</strong> — Design Services (with Book CTA), Chat, Modular Kitchen appt, Catalog.</li>
+      <li><strong>Discover ▾</strong> — Inspiration, Showcase Events, Catalog, Partnership.</li>
+      <li><strong>Company ▾</strong> — About Us, Locations, Contact.</li>
+      <li>Utility icons (search, wishlist, cart, profile) on far right.</li>
+      <li><strong>Best for:</strong> Clean, minimal, Apple-like. Easiest to implement. Condenses beautifully on scroll.</li>
+    </ul>
+    <div class="hint">✔ Hover the nav buttons above to see the live mega-menu in action.</div>
+  </div>
+
+</body>
+</html>

@@ -664,6 +664,10 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+export function getProductById(id: string): Product | undefined {
+  return PRODUCTS.find((p) => p.id === id);
+}
+
 export function getProductsByCategory(category: string, subcategory?: string): Product[] {
   return PRODUCTS.filter(
     (p) =>
