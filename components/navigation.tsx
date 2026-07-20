@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import { CATEGORIES } from "@/data/categories";
 import {
   Search,
   ShoppingCart,
@@ -27,43 +28,13 @@ import {
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 
-// Navigation Links
+// Primary navigation links (not category-based)
 const PRIMARY_LINKS = [
   { label: "Home", href: "/" },
   { label: "Design Services", href: "#" },
   { label: "Locations", href: "#" },
   { label: "Catalog", href: "#" },
   { label: "Contact", href: "#" },
-];
-
-const CATEGORIES = [
-  { label: "NEW", href: "#" },
-  {
-    label: "LIVING ROOM",
-    href: "#",
-    subcategories: ["Sofa", "Divan", "Center & Side Table", "Lounge Chair", "TV Cabinet"],
-  },
-  {
-    label: "BEDROOM",
-    href: "#",
-    subcategories: ["Bed", "Dressing Unit", "Nightstand", "Storage"],
-  },
-  {
-    label: "KITCHEN + DINING",
-    href: "#",
-    subcategories: ["Chair", "Dining Table", "Storage", "Tea Trolley"],
-  },
-  { label: "MODULAR KITCHEN", href: "#" },
-  {
-    label: "ENTRYWAY + HALLWAY",
-    href: "#",
-    subcategories: ["Console", "Shoe Cabinet"],
-  },
-  {
-    label: "HOME OFFICE",
-    href: "#",
-    subcategories: ["Study Desk"],
-  },
 ];
 
 export function Navigation() {
@@ -207,22 +178,29 @@ export function Navigation() {
                 <p className="text-[10px] text-muted-foreground tracking-[0.2em] mb-2">Categories</p>
                 <Accordion className="w-full">
                   {CATEGORIES.map((cat, idx) => (
-                    <AccordionItem key={cat.label} value={`item-${idx}`} className="border-b border-border/40">
-                      {cat.subcategories ? (
+                    <AccordionItem key={cat.slug} value={`item-${idx}`} className="border-b border-border/40">
+                      {cat.subcategories.length > 0 ? (
                         <>
                           <AccordionTrigger className="text-xs font-semibold py-3 hover:text-primary hover:no-underline">
-                            {cat.label}
+                            {cat.name}
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="flex flex-col gap-3 pl-4 py-2 text-xs normal-case text-muted-foreground font-sans">
+                              <Link
+                                href={`/collections/${cat.slug}`}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="hover:text-primary transition-colors font-medium"
+                              >
+                                All {cat.name}
+                              </Link>
                               {cat.subcategories.map((sub) => (
                                 <Link
-                                  key={sub}
-                                  href="#"
+                                  key={sub.slug}
+                                  href={`/collections/${cat.slug}?type=${sub.slug}`}
                                   onClick={() => setMobileMenuOpen(false)}
                                   className="hover:text-primary transition-colors"
                                 >
-                                  {sub}
+                                  {sub.name}
                                 </Link>
                               ))}
                             </div>
@@ -231,11 +209,11 @@ export function Navigation() {
                       ) : (
                         <div className="py-3 text-xs font-semibold">
                           <Link
-                            href={cat.href}
+                            href={`/collections/${cat.slug}`}
                             onClick={() => setMobileMenuOpen(false)}
                             className="hover:text-primary transition-colors block w-full"
                           >
-                            {cat.label}
+                            {cat.name}
                           </Link>
                         </div>
                       )}
@@ -259,7 +237,6 @@ export function Navigation() {
       </div>
 
       {/* Row 2 — Categories (Desktop Only) */}
-      {/* Hide on Hero if scrolled is false */}
       <div
         className={cn(
           "w-full border-t border-border/10 py-3 transition-all duration-300 hidden lg:block",
@@ -268,30 +245,37 @@ export function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-8 text-[11px] font-sans font-semibold tracking-[0.15em] uppercase">
           {CATEGORIES.map((cat) => (
-            <div key={cat.label} className="relative group py-1">
-              {cat.subcategories ? (
+            <div key={cat.slug} className="relative group py-1">
+              {cat.subcategories.length > 0 ? (
                 <>
-                  <button className="flex items-center gap-1 hover:text-primary transition-colors uppercase cursor-pointer">
-                    {cat.label}
+                  {/* Category label is a Link to the collection page */}
+                  <Link
+                    href={`/collections/${cat.slug}`}
+                    className="flex items-center gap-1 hover:text-primary transition-colors uppercase"
+                  >
+                    {cat.name}
                     <ChevronDown className="size-3 opacity-60 group-hover:rotate-180 transition-transform duration-300" />
-                  </button>
+                  </Link>
 
                   {/* Dropdown Menu */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-background border border-border/80 shadow-lg rounded-sm py-2 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col text-left normal-case font-normal text-muted-foreground font-sans z-50">
                     {cat.subcategories.map((sub) => (
                       <Link
-                        key={sub}
-                        href="#"
+                        key={sub.slug}
+                        href={`/collections/${cat.slug}?type=${sub.slug}`}
                         className="px-4 py-2 hover:bg-muted hover:text-foreground transition-colors rounded-sm text-xs"
                       >
-                        {sub}
+                        {sub.name}
                       </Link>
                     ))}
                   </div>
                 </>
               ) : (
-                <Link href={cat.href} className="hover:text-primary transition-colors">
-                  {cat.label}
+                <Link
+                  href={`/collections/${cat.slug}`}
+                  className="hover:text-primary transition-colors"
+                >
+                  {cat.name}
                 </Link>
               )}
             </div>

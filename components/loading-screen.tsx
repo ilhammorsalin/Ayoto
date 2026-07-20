@@ -50,26 +50,24 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
           className="fixed inset-0 bg-background z-50 flex flex-col items-center justify-center pointer-events-auto"
         >
           {/* Animated Logo Container */}
-          <div className="flex flex-col items-center gap-6 select-none">
-            <span
-              className="font-overcame text-5xl tracking-[0.2em] transition-colors duration-100 ease-out"
-              style={{
-                color: `color-mix(in oklch, var(--color-primary) ${progress}%, var(--color-accent))`,
-              }}
-            >
-              AYOTO
-            </span>
+          <div className="flex select-none">
+            {"AYOTO".split("").map((letter, i) => {
+              const start = (i / 5) * 100;
+              const lp = Math.min(1, Math.max(0, (progress - start) / 20));
 
-            {/* Progress Bar Container */}
-            <div className="w-36 h-[2px] bg-border/40 relative overflow-hidden rounded-full">
-              <div
-                className="h-full absolute left-0 top-0 transition-all duration-100 ease-out rounded-full"
-                style={{
-                  width: `${progress}%`,
-                  backgroundColor: `color-mix(in oklch, var(--color-foreground) ${progress}%, var(--color-border))`,
-                }}
-              />
-            </div>
+              return (
+                <span
+                  key={i}
+                  className="font-overcame text-5xl tracking-[0.2em]"
+                  style={{
+                    color: `color-mix(in oklch, var(--color-muted-foreground) ${(1 - lp) * 100}%, var(--color-primary))`,
+                    opacity: 0.15 + lp * 0.85,
+                  }}
+                >
+                  {letter}
+                </span>
+              );
+            })}
           </div>
         </motion.div>
       )}
