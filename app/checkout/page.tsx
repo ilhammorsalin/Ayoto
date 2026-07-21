@@ -102,7 +102,7 @@ export default function CheckoutPage() {
                 <div className="sm:col-span-2">
                   <Field id="address" label="Address"    placeholder="House, Road, Area" />
                 </div>
-                <Field id="city"   label="City"          placeholder="Chittagong" />
+                <Field id="city"   label="City"          placeholder="Dhaka" />
                 <Field id="postal" label="Postal code"   placeholder="4000" />
               </div>
             </section>
@@ -143,7 +143,7 @@ export default function CheckoutPage() {
 
               {payMethod === "cod" && (
                 <p className="rounded-lg border border-border bg-muted/40 px-4 py-4 text-[13px] text-muted-foreground leading-relaxed">
-                  Pay with cash when your order is delivered. Applicable within Chittagong city.
+                  Pay with cash when your order is delivered. Applicable within Dhaka city.
                 </p>
               )}
             </section>

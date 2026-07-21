@@ -11,7 +11,7 @@ export function LegacySection() {
               Architectural Digest — "Minimalism in South Asia"
             </li>
             <li className="hover:text-foreground transition-colors cursor-pointer">
-              Monocle — "Chittagong's Craft Revival"
+              Monocle — "Dhaka's Craft Revival"
             </li>
             <li className="hover:text-foreground transition-colors cursor-pointer">
               Wallpaper* — "Quiet Design Awards 2024"
@@ -23,7 +23,7 @@ export function LegacySection() {
         <div className="flex flex-col gap-6">
           <h3 className="font-serif text-2xl border-b border-border/50 pb-4">The Makers</h3>
           <p className="font-sans text-muted-foreground leading-relaxed">
-            Our workshop in Chittagong is home to second and third-generation woodworkers. 
+            Our workshop in Dhaka is home to second and third-generation woodworkers. 
             We pair their deep understanding of local materials with precise, modern 
             manufacturing techniques. We don't just build furniture; we preserve a legacy 
             of hand-craftsmanship that machines simply cannot replicate.

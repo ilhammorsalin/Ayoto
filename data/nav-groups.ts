@@ -92,7 +92,7 @@ export const COMPANY_LINKS: NavLink[] = [
   {
     label: "Locations",
     href: "#",
-    description: "Find us in Chittagong",
+    description: "Find us in Dhaka",
   },
   {
     label: "Contact",

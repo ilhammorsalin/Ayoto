@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Ayoto — Philosophy & Craftsmanship",
-  description: "Discover the philosophy behind Ayoto. Built in Chittagong, designed for quiet living.",
+  description: "Discover the philosophy behind Ayoto. Built in Dhaka, designed for quiet living.",
 };
 
 export default function AboutPage() {

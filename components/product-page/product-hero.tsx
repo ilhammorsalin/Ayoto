@@ -16,8 +16,19 @@ interface ProductHeroProps {
 export function ProductHero({ product }: ProductHeroProps) {
   const [activeImage, setActiveImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product.colorOptions[0]);
+  const [showBaseImage, setShowBaseImage] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+
+  const selectedColorIndex = product.colorOptions.findIndex(
+    (c) => c.hex === selectedColor.hex
+  );
+  const variantImage =
+    !showBaseImage && selectedColorIndex >= 0
+      ? product.colorImages[selectedColorIndex]
+      : null;
+
+  const displayImage = variantImage ?? product.images[activeImage];
 
   const { addToCart } = useCart();
 
@@ -28,7 +39,7 @@ export function ProductHero({ product }: ProductHeroProps) {
       name: product.name,
       priceNumeric: product.priceNumeric,
       priceLabel: product.price,
-      image: product.images[0],
+      image: displayImage,
       colorHex: selectedColor.hex,
       colorLabel: selectedColor.label,
     });
@@ -54,8 +65,8 @@ export function ProductHero({ product }: ProductHeroProps) {
               className="absolute inset-0"
             >
               <Image
-                src={product.images[activeImage]}
-                alt={`${product.name} — view ${activeImage + 1}`}
+                src={displayImage}
+                alt={`${product.name}${variantImage ? ` — ${selectedColor.label}` : ` — view ${activeImage + 1}`}`}
                 fill
                 priority
                 className="object-cover object-center"
@@ -65,32 +76,48 @@ export function ProductHero({ product }: ProductHeroProps) {
           </AnimatePresence>
         </div>
 
-        {/* Thumbnail carousel */}
-        {product.images.length > 1 && (
-          <div className="flex gap-2 p-4 overflow-x-auto scrollbar-hide bg-background border-t border-border/40">
-            {product.images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveImage(i)}
-                aria-label={`View image ${i + 1}`}
-                className={cn(
-                  "relative shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-all duration-200",
-                  activeImage === i
-                    ? "border-primary shadow-sm shadow-primary/20"
-                    : "border-transparent opacity-60 hover:opacity-90"
-                )}
-              >
-                <Image
-                  src={img}
-                  alt={`${product.name} thumbnail ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="64px"
-                />
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Thumbnail row — views + color variants */}
+        <div className="flex gap-2 p-4 overflow-x-auto scrollbar-hide bg-background border-t border-border/40">
+          <button
+            onClick={() => { setActiveImage(0); setShowBaseImage(true); }}
+            className={cn(
+              "relative shrink-0 w-16 h-16  overflow-hidden border-2 transition-all duration-200",
+              showBaseImage
+                ? "border-primary shadow-sm shadow-primary/20"
+                : "border-transparent opacity-60 hover:opacity-90"
+            )}
+          >
+            <Image
+              src={product.images[0]}
+              alt={`${product.name}`}
+              fill
+              className="object-cover"
+              sizes="64px"
+            />
+          </button>
+          <div className="w-px bg-border/40 shrink-0" />
+          {product.colorImages.map((img, i) => (
+            <button
+              key={`color-${i}`}
+              onClick={() => { setSelectedColor(product.colorOptions[i]); setActiveImage(0); setShowBaseImage(false); }}
+              aria-label={product.colorOptions[i].label}
+              className={cn(
+                "relative shrink-0 w-16 h-16  overflow-hidden border-2 transition-all duration-200",
+                selectedColor.hex === product.colorOptions[i].hex
+                  ? "border-primary shadow-sm shadow-primary/20"
+                  : "border-transparent opacity-60 hover:opacity-90"
+              )}
+            >
+              <Image
+                src={img}
+                alt={product.colorOptions[i].label}
+                fill
+                className="object-cover"
+                sizes="64px"
+              />
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ── RIGHT: buy panel ──────────────────────────────────────────── */}
@@ -141,7 +168,7 @@ export function ProductHero({ product }: ProductHeroProps) {
                   aria-label={c.label}
                   title={c.label}
                   className={cn(
-                    "relative size-8 rounded-full border-2 transition-all duration-200",
+                    "relative size-8  border-2 transition-all duration-200",
                     selectedColor.hex === c.hex
                       ? "border-primary scale-110 shadow-md shadow-primary/20"
                       : "border-border hover:scale-105"
@@ -183,7 +210,7 @@ export function ProductHero({ product }: ProductHeroProps) {
               onClick={handleAddToCart}
               disabled={added}
               className={cn(
-                "flex-1 flex items-center justify-center gap-2.5 rounded-lg font-semibold text-[13px] uppercase tracking-widest",
+                "flex-1 flex items-center justify-center gap-2.5  font-semibold text-[13px] uppercase tracking-widest",
                 "transition-all duration-200 active:scale-[0.98]",
                 added
                   ? "bg-primary/20 text-primary border border-primary/30 cursor-default"

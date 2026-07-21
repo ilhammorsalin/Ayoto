@@ -18,7 +18,7 @@ export function CartIconButton({ transparent = false }: CartIconButtonProps) {
       aria-label={`Cart${totalItems > 0 ? ` (${totalItems} items)` : ""}`}
       onClick={openCart}
       className={cn(
-        "relative flex items-center justify-center rounded-[5px] p-2 transition-colors",
+        "relative flex items-center justify-center  p-2 transition-colors",
         transparent
           ? "text-white/80 hover:text-white hover:bg-white/10"
           : "text-foreground/65 hover:text-foreground hover:bg-muted"
@@ -37,7 +37,7 @@ export function CartIconButton({ transparent = false }: CartIconButtonProps) {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
               "absolute -top-0.5 -right-0.5 flex min-w-[16px] h-4 items-center justify-center",
-              "rounded-full bg-primary px-[3px] text-[9px] font-bold leading-none text-primary-foreground"
+              "  bg-primary px-[3px] text-[9px] font-bold leading-none text-primary-foreground"
             )}
           >
             {totalItems > 99 ? "99+" : totalItems}

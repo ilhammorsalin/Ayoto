@@ -1,7 +1,6 @@
 import type { StaticImageData } from "next/image";
 
 import adaptis from "@/Assets/Furniture/sofas/Adaptis.png";
-import adaptis__1 from "@/Assets/Furniture/sofas/Adaptis (1).png";
 import alba from "@/Assets/Furniture/Bed/Alba.png";
 import alba__King from "@/Assets/Furniture/Bed/Alba (King).png";
 import alteza from "@/Assets/Furniture/Lounge Chair/Alteza.png";
@@ -525,7 +524,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "adaptis",
     name: "Adaptis",
-    images: [adaptis__1, adaptis],
+    images: [adaptis],
     category: "living-room",
     subcategory: "sofa",
     price: "৳45,000", // MOCK — placeholder value

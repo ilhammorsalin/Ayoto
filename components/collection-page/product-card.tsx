@@ -55,8 +55,8 @@ export function ProductCard({ product }: { product: Product }) {
 
           {hasMultipleImages && (
             <>
-              <CarouselPrevious className="left-2 top-1/2 -translate-y-1/2 z-20 size-8 rounded-full bg-white/80 text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white border-0" />
-              <CarouselNext className="right-2 top-1/2 -translate-y-1/2 z-20 size-8 rounded-full bg-white/80 text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white border-0" />
+              <CarouselPrevious className="left-2 top-1/2 -translate-y-1/2 z-20 size-8  bg-white/80 text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white border-0" />
+              <CarouselNext className="right-2 top-1/2 -translate-y-1/2 z-20 size-8  bg-white/80 text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white border-0" />
             </>
           )}
         </Carousel>
@@ -101,7 +101,7 @@ export function ProductCard({ product }: { product: Product }) {
               {product.colorOptions.map((color, i) => (
                 <span
                   key={i}
-                  className="inline-block size-3 rounded-sm border border-border/50"
+                  className="inline-block size-3  border border-border/50"
                   style={{ backgroundColor: color }}
                 />
               ))}

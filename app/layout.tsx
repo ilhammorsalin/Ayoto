@@ -28,7 +28,7 @@ const montserratExtraLight = localFont({
 
 export const metadata: Metadata = {
   title: "Ayoto — Designed for Quiet Living",
-  description: "Chittagong-based furniture inspired by Japanese minimalism, timeless craftsmanship, and natural materials.",
+  description: "Dhaka-based furniture inspired by Japanese minimalism, timeless craftsmanship, and natural materials.",
   openGraph: {
     title: "Ayoto — Designed for Quiet Living",
     description: "Furniture inspired by Japanese minimalism.",

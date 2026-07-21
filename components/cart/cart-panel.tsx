@@ -58,7 +58,7 @@ export function CartPanel() {
             <button
               onClick={closeCart}
               aria-label="Close cart"
-              className="ml-1 flex size-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              className="ml-1 flex size-7 items-center justify-center  text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               <X className="size-4" />
             </button>
@@ -100,7 +100,7 @@ export function CartPanel() {
                 >
                   <div className="flex gap-4">
                     {/* Thumbnail */}
-                    <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                    <div className="relative h-20 w-16 shrink-0 overflow-hidden  bg-muted">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -125,7 +125,7 @@ export function CartPanel() {
                       {/* Color swatch + label */}
                       <div className="flex items-center gap-1.5">
                         <span
-                          className="inline-block size-2.5 rounded-full border border-border/50"
+                          className="inline-block size-2.5  border border-border/50"
                           style={{ backgroundColor: item.colorHex }}
                         />
                         <span className="text-[11px] text-muted-foreground">
@@ -179,7 +179,7 @@ export function CartPanel() {
             <button
               onClick={handleCheckout}
               className={cn(
-                "w-full rounded-lg bg-primary py-3.5 text-[13px] font-semibold uppercase tracking-widest text-primary-foreground",
+                "w-full  bg-primary py-3.5 text-[13px] font-semibold uppercase tracking-widest text-primary-foreground",
                 "transition-all duration-200 hover:bg-primary/90 active:scale-[0.99]"
               )}
             >

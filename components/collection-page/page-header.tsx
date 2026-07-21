@@ -8,7 +8,7 @@ import { Category } from "@/data/categories";
 export function CollectionPageHeader({ category }: { category: Category }) {
   return (
     <div className="max-w-7xl mx-12 px-1 pt-46 pb-8">
-      <h1 className="font-serif text-4xl md:text-5xl tracking-tight">
+      <h1 className="font-serif text-5xl md:text-7xl tracking-tight">
         {category.name}
       </h1>
       <p className="mt-4 max-w-xl text-muted-foreground text-sm leading-relaxed">

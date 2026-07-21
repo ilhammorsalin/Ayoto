@@ -26,7 +26,7 @@ const HUB_LINKS = [
   },
   {
     title: "Visit Us",
-    description: "Find us in Chittagong",
+    description: "Find us in Dhaka",
     icon: MapPin,
     href: "#",
   },
@@ -63,7 +63,7 @@ export function NavigationHub() {
             return (
               <motion.div key={link.title} variants={cardVariants}>
                 <Link href={link.href} className="block h-full group">
-                  <Card className="h-full bg-primary border-primary-foreground/20 text-primary-foreground rounded-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-primary-foreground/5 cursor-pointer">
+                  <Card className="h-full bg-primary border-primary-foreground/20 text-primary-foreground  transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-primary-foreground/5 cursor-pointer">
                     <CardHeader className="pb-4">
                       <Icon className="size-6 text-primary-foreground/80 mb-2" />
                       <h3 className="font-sans font-semibold text-lg tracking-wide">

@@ -26,7 +26,7 @@ export function QuantityControl({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-background",
+        "inline-flex items-center  border border-border bg-background",
         isMd ? "h-11" : "h-8",
         className
       )}

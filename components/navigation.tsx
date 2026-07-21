@@ -73,14 +73,14 @@ function MegaHeading({ children }: { children: React.ReactNode }) {
 // ─── Shop: 3-column mega-menu ─────────────────────────────────────────────────
 function ShopContent() {
   const linkCn =
-    "block px-2.5 py-[5px] rounded-[4px] text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150 leading-snug";
+    "block py-[5px]  text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150 leading-snug";
 
   return (
     <div className="grid grid-cols-3 gap-x-8 gap-y-0 p-7 w-[680px]">
       {/* Col 1 — By Furniture */}
       <div>
         <MegaHeading>By Furniture</MegaHeading>
-        <ul className="space-y-0 list-none p-0 m-0">
+        <ul className="space-y-0 list-none px-2.5 m-0">
           {FURNITURE_ITEMS.map((item) => (
             <li key={item.label}>
               <MegaLink href={item.href} className={linkCn}>
@@ -91,7 +91,7 @@ function ShopContent() {
         </ul>
         <MegaLink
           href="/collections"
-          className="mt-2 flex items-center gap-1 px-2.5 py-1 text-[11px] text-muted-foreground hover:text-primary transition-colors"
+          className="mt-2 flex items-center gap-1 py-1 text-[11px] text-muted-foreground hover:text-primary transition-colors"
         >
           View all <ArrowRight className="size-3" />
         </MegaLink>
@@ -100,7 +100,7 @@ function ShopContent() {
       {/* Col 2 — By Room */}
       <div>
         <MegaHeading>By Room</MegaHeading>
-        <ul className="space-y-0 list-none p-0 m-0">
+        <ul className="space-y-0 list-none px-2.5 m-0">
           {ROOM_ITEMS.map((item) => (
             <li key={item.label}>
               <MegaLink href={item.href} className={linkCn}>
@@ -114,12 +114,12 @@ function ShopContent() {
       {/* Col 3 — By Theme + Modular Kitchen CTA */}
       <div className="flex flex-col">
         <MegaHeading>By Theme</MegaHeading>
-        <ul className="space-y-0 list-none p-0 m-0 mb-6">
+        <ul className="space-y-0 list-none px-2.5 m-0 mb-6">
           {THEME_ITEMS.map((item) => (
             <li key={item.label}>
               <MegaLink
                 href={item.href}
-                className="flex items-center gap-2 px-2.5 py-[5px] rounded-[4px] text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150"
+                className="flex items-center gap-2 py-[5px]  text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150"
               >
                 <span className="text-[11px] opacity-80">{item.tag}</span>
                 {item.label}
@@ -132,7 +132,7 @@ function ShopContent() {
         <div className="mt-auto pt-4 border-t border-border/40">
           <MegaLink
             href="#"
-            className="group flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 p-3.5 hover:bg-primary/10 hover:border-primary/30 transition-colors"
+            className="group flex items-start gap-3  border border-primary/20 bg-primary/5 p-3.5 hover:bg-primary/10 hover:border-primary/30 transition-colors"
           >
             <Pencil className="mt-0.5 size-[15px] shrink-0 text-primary" />
             <div className="min-w-0">
@@ -155,13 +155,13 @@ function ShopContent() {
 function SimpleContent({ links }: { links: NavLink[] }) {
   return (
     <div className="p-3 w-[280px]">
-      <ul className="space-y-0.5 list-none p-0 m-0">
+      <ul className="space-y-0.5 list-none px-3 m-0">
         {links.map((link) => (
           <li key={link.label}>
             <MegaLink
               href={link.href}
               className={cn(
-                "flex flex-col gap-0.5 rounded-lg px-3 py-2.5 transition-colors",
+                "flex flex-col gap-0.5 py-2.5 transition-colors",
                 link.cta
                   ? "border border-primary/20 bg-primary/5 hover:bg-primary/10"
                   : "hover:bg-muted/70",
@@ -235,7 +235,7 @@ export function Navigation() {
 
   // ── Trigger button style ──
   const triggerCn = cn(
-    "flex h-9 cursor-default select-none items-center gap-1.5 rounded-[5px] px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors",
+    "flex h-9 cursor-default select-none items-center gap-1.5  px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors",
     "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     isTransparent
       ? "text-white/80 hover:text-white hover:bg-white/10 data-[popup-open]:bg-white/15 data-[popup-open]:text-white"
@@ -244,7 +244,7 @@ export function Navigation() {
 
   // ── Utility icon button style ──
   const iconCn = cn(
-    "flex items-center justify-center rounded-[5px] p-2 transition-colors",
+    "flex items-center justify-center  p-2 transition-colors",
     isTransparent
       ? "text-white/80 hover:text-white hover:bg-white/10"
       : "text-foreground/65 hover:text-foreground hover:bg-muted",
@@ -370,7 +370,7 @@ export function Navigation() {
                   exit={{ width: 36, opacity: 0 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   className={cn(
-                    "flex h-9 items-center gap-2 overflow-hidden rounded-full px-3",
+                    "flex h-9 items-center gap-2 overflow-hidden  px-3",
                     isTransparent
                       ? "bg-white/15 text-white ring-1 ring-white/20"
                       : "bg-muted text-foreground ring-1 ring-border",
@@ -467,7 +467,7 @@ export function Navigation() {
                     Shop
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="flex flex-col gap-0.5 pb-3 pl-2">
+                    <div className="flex flex-col gap-0.5 pb-3 px-2">
                       <p className="mb-1 mt-2 px-2 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
                         By Furniture
                       </p>
@@ -476,7 +476,7 @@ export function Navigation() {
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="rounded-[4px] px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+                          className="px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
                         >
                           {item.label}
                         </NextLink>
@@ -489,7 +489,7 @@ export function Navigation() {
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="rounded-[4px] px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+                          className="px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
                         >
                           {item.label}
                         </NextLink>
@@ -502,7 +502,7 @@ export function Navigation() {
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-[4px] px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+                          className="flex items-center gap-2  py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
                         >
                           <span className="text-[11px]">{item.tag}</span>
                           {item.label}
@@ -521,14 +521,14 @@ export function Navigation() {
                     Services
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="flex flex-col gap-0.5 pb-3 pl-2">
+                    <div className="flex flex-col gap-0.5 pb-3 px-2">
                       {SERVICES_LINKS.map((item) => (
                         <NextLink
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
                           className={cn(
-                            "rounded-[4px] px-2 py-1.5 text-[13px] transition-colors hover:text-primary",
+                            "px-2 py-1.5 text-[13px] transition-colors hover:text-primary",
                             item.cta
                               ? "font-medium text-primary"
                               : "text-muted-foreground",
@@ -550,13 +550,13 @@ export function Navigation() {
                     Discover
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="flex flex-col gap-0.5 pb-3 pl-2">
+                    <div className="flex flex-col gap-0.5 pb-3 px-2">
                       {DISCOVER_LINKS.map((item) => (
                         <NextLink
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="rounded-[4px] px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+                          className="px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
                         >
                           {item.label}
                         </NextLink>
@@ -574,13 +574,13 @@ export function Navigation() {
                     Company
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="flex flex-col gap-0.5 pb-3 pl-2">
+                    <div className="flex flex-col gap-0.5 pb-3 px-2">
                       {COMPANY_LINKS.map((item) => (
                         <NextLink
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="rounded-[4px] px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+                          className="px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:text-primary"
                         >
                           {item.label}
                         </NextLink>
@@ -617,7 +617,7 @@ export function Navigation() {
           >
             <div
               className={cn(
-                "mx-4 mb-3 flex items-center gap-2 rounded-full px-4 py-2",
+                "mx-4 mb-3 flex items-center gap-2  px-4 py-2",
                 isTransparent
                   ? "bg-white/15 text-white ring-1 ring-white/20"
                   : "bg-muted text-foreground",

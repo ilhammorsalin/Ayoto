@@ -1,7 +1,7 @@
 # Ayoto — Frontend Skeleton Build Prompt
 
 <frontend_aesthetics>
-This is not a generic e-commerce template. Ayoto is a Chittagong-based furniture company
+This is not a generic e-commerce template. Ayoto is a Dhaka-based furniture company
 inspired by Japanese minimalism, timeless craftsmanship, and natural materials. The site
 must feel cinematic, emotionally-driven, and deeply intentional — like discovering a
 philosophy through slow scroll storytelling, not browsing a catalog.
@@ -222,7 +222,7 @@ Define in the global CSS file (`app/globals.css`):
 // app/layout.tsx metadata
 export const metadata = {
   title: "Ayoto — Designed for Quiet Living",
-  description: "Chittagong-based furniture inspired by Japanese minimalism, timeless craftsmanship, and natural materials.",
+  description: "Dhaka-based furniture inspired by Japanese minimalism, timeless craftsmanship, and natural materials.",
   openGraph: {
     title: "Ayoto — Designed for Quiet Living",
     description: "Furniture inspired by Japanese minimalism.",
@@ -344,7 +344,7 @@ Two-row fixed navigation, matching the existing ayoto.com structure:
   - One short line of copy beside or over the image
 - Stages:
   1. Selected Materials
-  2. Designed in Chittagong
+  2. Designed in Dhaka
   3. Handcrafted by Skilled Artisans
   4. Finished with Precision
   5. Made to Last Generations
@@ -363,7 +363,7 @@ Two-row fixed navigation, matching the existing ayoto.com structure:
 - **Near-black background** — use `bg-foreground text-background` (semantic tokens, not raw colors)
 - Ayoto logo lockup: "AYOTO" (Overcame Demo) + "FURNITURE" (Montserrat ExtraLight), white
 - One-line brand statement: "Furniture for quiet living." — Crimson Pro italic
-- Chittagong, Bangladesh location
+- Dhaka, Bangladesh location
 - Contact: info@ayoto.com (placeholder)
 - Social links: Instagram, Facebook, Pinterest — use Lucide icons, white
 - Copyright: "© 2025 Ayoto. All rights reserved." — Satoshi
@@ -390,7 +390,7 @@ motion.
 - No teal in this section except perhaps a thin accent line between statements
 - **Philosophy copy** (these are real Ayoto-voice statements, not lorem ipsum):
   1. "We begin where it matters — with the material itself. Honest wood, natural fiber, stone that has known the earth."
-  2. "Each piece takes shape in Chittagong, where the line between craft and intention disappears."
+  2. "Each piece takes shape in Dhaka, where the line between craft and intention disappears."
   3. "Our makers don't follow templates. Their hands remember what machines were never taught."
   4. "We don't design for seasons. We design for the family that will inherit what you choose today."
 - **Mobile**: keep fullscreen-per-statement but shorten the scroll distance per transition so it doesn't feel sluggish
@@ -435,7 +435,7 @@ motion.
     1. **Home** — House icon — "Return to the beginning" → links to `/`
     2. **Browse Collections** — Grid icon — "Explore our furniture" → links to `#`
     3. **Contact** — Mail icon — "Start a conversation" → links to `#`
-    4. **Visit Us** — MapPin icon — "Find us in Chittagong" → links to `#`
+    4. **Visit Us** — MapPin icon — "Find us in Dhaka" → links to `#`
 - Animation: Framer Motion staggered `whileInView` — cards fade upward with 0.1s stagger
 - Hover: subtle `translateY(-4px)` lift + slight opacity increase — no scaling, no color shifts
 - **Mobile**: single column stack (2×2 on tablet), same staggered fade-in

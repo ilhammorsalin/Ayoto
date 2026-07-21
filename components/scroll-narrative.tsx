@@ -7,7 +7,7 @@ import haloImage from "@/Assets/Furniture/Center table/Halo.png";
 
 const STATEMENTS = [
   "We begin where it matters — with the material itself. Honest wood, natural fiber, stone that has known the earth.",
-  "Each piece takes shape in Chittagong, where the line between craft and intention disappears.",
+  "Each piece takes shape in Dhaka, where the line between craft and intention disappears.",
   "Our makers don't follow templates. Their hands remember what machines were never taught.",
   "We don't design for seasons. We design for the family that will inherit what you choose today.",
 ];

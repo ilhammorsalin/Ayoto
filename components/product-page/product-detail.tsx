@@ -51,7 +51,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               {["Boucle Fabric", "Solid Oak Legs", "Made to Order"].map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground tracking-wide"
+                  className="  border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground tracking-wide"
                 >
                   {tag}
                 </span>
