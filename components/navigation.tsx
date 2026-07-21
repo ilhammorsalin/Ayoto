@@ -18,7 +18,6 @@ import { NavigationMenu } from "@base-ui/react/navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  ShoppingCart,
   Heart,
   User,
   Menu,
@@ -27,6 +26,7 @@ import {
   ArrowRight,
   Pencil,
 } from "lucide-react";
+import { CartIconButton } from "@/components/cart/cart-icon-button";
 import {
   Sheet,
   SheetContent,
@@ -408,12 +408,13 @@ export function Navigation() {
                   >
                     <Search className="size-[18px]" />
                   </button>
-                  <button aria-label="Wishlist" className={iconCn}>
+                  <button
+                    aria-label="Wishlist"
+                    className={iconCn}
+                  >
                     <Heart className="size-[18px]" />
                   </button>
-                  <button aria-label="Cart" className={iconCn}>
-                    <ShoppingCart className="size-[18px]" />
-                  </button>
+                  <CartIconButton transparent={isTransparent} />
                   <button aria-label="Account" className={iconCn}>
                     <User className="size-[18px]" />
                   </button>
@@ -432,9 +433,7 @@ export function Navigation() {
           >
             <Search className="size-5" />
           </button>
-          <button aria-label="Cart" className={iconCn}>
-            <ShoppingCart className="size-5" />
-          </button>
+          <CartIconButton transparent={isTransparent} />
 
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger

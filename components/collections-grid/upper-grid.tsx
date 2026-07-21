@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import albaHD from "@/Assets/Furniture/Gemini HD/albaHD.png";
 import alba2HD from "@/Assets/Furniture/Gemini HD/alba2HD.png";
@@ -13,6 +14,7 @@ const ITEMS = [
     id: "upper-1",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-7 sm:col-start-1 sm:row-start-1",
+    productId: "alba",
     src: albaHD,
     hoverSrc: alba2HD,
     alt: "Alba King bed",
@@ -23,6 +25,7 @@ const ITEMS = [
     id: "upper-2",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-4 sm:col-start-3 sm:row-start-1",
+    productId: "halo",
     src: halo1,
     hoverSrc: haloHover,
     alt: "Halo center table",
@@ -33,6 +36,7 @@ const ITEMS = [
     id: "upper-3",
     type: "photo",
     desktopClass: "sm:col-span-3 sm:row-span-4 sm:col-start-5 sm:row-start-1",
+    productId: "questa",
     src: questa,
     hoverSrc: questaHover,
     alt: "Questa TV cabinet",
@@ -70,7 +74,7 @@ export function UpperGrid() {
   }
 
   return (
-    <div className="mt-1 gap-1 grid grid-cols-1 auto-rows-[50vh] sm:auto-rows-auto sm:grid-cols-7 sm:grid-rows-7 h-full">
+    <div className="mt-1 gap-1 grid grid-cols-1 auto-rows-[50vh] sm:grid-cols-7 sm:grid-rows-[repeat(7,minmax(0,1fr))] h-full">
       {ITEMS.map((item) => (
         <div
           key={item.id}
@@ -82,8 +86,8 @@ export function UpperGrid() {
             }
           }}
         >
-          {item.type === "photo" && "src" in item && item.src ? (
-            <>
+          {item.type === "photo" && "src" in item && item.src && "productId" in item && item.productId ? (
+            <Link href={`/products/${item.productId}`} className="block w-full h-full">
               <Image
                 src={item.src}
                 alt={item.alt ?? ""}
@@ -110,7 +114,7 @@ export function UpperGrid() {
                   </p>
                 </div>
               )}
-            </>
+            </Link>
           ) : item.type === "text" ? (
             <div className="flex flex-col justify-center items-center p-8 h-full text-center">
               <h3 className="mb-2 font-serif text-2xl">{item.heading}</h3>

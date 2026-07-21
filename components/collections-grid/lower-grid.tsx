@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import oglio from "@/Assets/Furniture/divan/Oglio.png";
 import oglioHover from "@/Assets/Furniture/divan/Oglio (1).png";
@@ -26,6 +27,7 @@ const ITEMS = [
     id: "lower-2",
     type: "photo",
     desktopClass: "sm:col-span-3 sm:row-span-3 sm:col-start-1 sm:row-start-8",
+    productId: "opaline",
     src: opalineHD,
     hoverSrc: opaline2HD,
     alt: "Opaline lounge chair",
@@ -37,6 +39,7 @@ const ITEMS = [
     id: "lower-4",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-5 sm:col-start-6 sm:row-start-1",
+    productId: "oglio",
     src: oglio,
     hoverSrc: oglioHover,
     alt: "Oglio divan",
@@ -54,6 +57,7 @@ const ITEMS = [
     id: "lower-6",
     type: "photo",
     desktopClass: "sm:col-span-3 sm:row-span-3 sm:col-start-3 sm:row-start-5",
+    productId: "cache",
     src: cache,
     hoverSrc: cacheHover,
     alt: "Cache center table",
@@ -64,6 +68,7 @@ const ITEMS = [
     id: "lower-7",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-3 sm:col-start-4 sm:row-start-8",
+    productId: "kivo",
     src: kivo,
     hoverSrc: kivoHover,
     alt: "Kivo center table",
@@ -74,6 +79,7 @@ const ITEMS = [
     id: "lower-8",
     type: "photo",
     desktopClass: "sm:col-span-2 sm:row-span-5 sm:col-start-6 sm:row-start-6",
+    productId: "sereno",
     src: serenoKing,
     hoverSrc: serenoHover,
     alt: "Sereno King bed",
@@ -86,7 +92,7 @@ export function LowerGrid() {
   const [tappedId, setTappedId] = useState<string | null>(null);
 
   return (
-    <div className="h-full grid grid-cols-1 auto-rows-[50vh] sm:auto-rows-auto sm:grid-cols-7 sm:grid-rows-10 gap-1">
+    <div className="h-full grid grid-cols-1 auto-rows-[50vh] sm:grid-cols-7 sm:grid-rows-[repeat(10,minmax(0,1fr))] gap-1">
       {ITEMS.map((item) => (
         <div
           key={item.id}
@@ -98,8 +104,8 @@ export function LowerGrid() {
             }
           }}
         >
-          {item.type === "photo" && "src" in item && item.src ? (
-            <>
+          {item.type === "photo" && "src" in item && item.src && "productId" in item && item.productId ? (
+            <Link href={`/products/${item.productId}`} className="block w-full h-full">
               <Image
                 src={item.src}
                 alt={item.alt ?? ""}
@@ -122,7 +128,7 @@ export function LowerGrid() {
                   <p className={`text-white/90 text-sm mt-1 transition-transform duration-500 delay-75 ${tappedId === item.id ? "translate-y-0" : "translate-y-4 group-hover:translate-y-0"}`}>{(item as any).hoverSubtext}</p>
                 </div>
               )}
-            </>
+            </Link>
           ) : item.type === "text" ? (
             <div className="flex flex-col justify-center items-center p-8 text-center h-full">
               <h3 className="font-serif text-2xl mb-2">{item.heading}</h3>

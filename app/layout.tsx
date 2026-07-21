@@ -5,6 +5,8 @@ import Script from "next/script";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { CartProvider } from "@/lib/cart-context";
+import { CartPanel } from "@/components/cart/cart-panel";
 
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
@@ -47,9 +49,12 @@ export default function RootLayout({
       className={`${crimsonPro.variable} ${overcame.variable} ${montserratExtraLight.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
-        <Navigation />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Navigation />
+          <CartPanel />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </CartProvider>
         {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
           <Script
             src="/_piny/piny.phone.js"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import heroVideo from "@/Assets/ayoto hd.mp4";
 
 export function Hero() {
@@ -20,6 +21,13 @@ export function Hero() {
           Designed for quiet living.
         </h1>
       </div>
+
+      <Link
+        href="/collections/living-room"
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 inline-block px-8 py-3 border border-white text-white text-sm tracking-wider transition-colors hover:bg-white hover:text-black"
+      >
+        Browse Collection
+      </Link>
     </section>
   );
 }
