@@ -14,7 +14,6 @@ import {
   COMPANY_LINKS,
   type NavLink,
 } from "@/data/nav-groups";
-import { NavigationMenu } from "@base-ui/react/navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -24,7 +23,6 @@ import {
   ChevronDown,
   X,
   ArrowRight,
-  Pencil,
 } from "lucide-react";
 import { CartIconButton } from "@/components/cart/cart-icon-button";
 import {
@@ -41,7 +39,7 @@ import {
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 
-// ─── Mega-menu link: wraps NavigationMenu.Link with Next.js Link ─────────────
+// ─── Mega-menu link ──────────────────────────────────────────────────────────
 function MegaLink({
   href,
   className,
@@ -52,36 +50,69 @@ function MegaLink({
   children: React.ReactNode;
 }) {
   return (
-    <NavigationMenu.Link
-      render={<NextLink href={href} />}
-      className={className}
-    >
+    <NextLink href={href} className={className}>
       {children}
-    </NavigationMenu.Link>
+    </NextLink>
   );
 }
 
-// ─── Shared mega-menu section heading ────────────────────────────────────────
+// ─── Column heading ──────────────────────────────────────────────────────────
 function MegaHeading({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-3 text-[9.5px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+    <p className="mb-4 px-1 text-[11px] font-bold tracking-[0.12em] uppercase text-muted-foreground">
       {children}
     </p>
   );
 }
 
+const ACCENT = "hover:bg-[#319093] hover:text-white";
+
 // ─── Shop: 3-column mega-menu ─────────────────────────────────────────────────
 function ShopContent() {
-  const linkCn =
-    "block py-[5px]  text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150 leading-snug";
+  const linkCn = cn(
+    "group block px-2.5 py-[7px] text-[13px] text-foreground/75 transition-colors leading-snug -mx-1",
+    ACCENT,
+  );
+
+  const half = Math.ceil(FURNITURE_ITEMS.length / 2);
+  const furnitureA = FURNITURE_ITEMS.slice(0, half);
+  const furnitureB = FURNITURE_ITEMS.slice(half);
 
   return (
-    <div className="grid grid-cols-3 gap-x-8 gap-y-0 p-7 w-[680px]">
-      {/* Col 1 — By Furniture */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 p-10">
+      {/* Col 1 — Featured */}
+      <div>
+        <MegaHeading>Featured</MegaHeading>
+        <div className="space-y-[2px]">
+          {THEME_ITEMS.map((item) => (
+            <MegaLink
+              key={item.label}
+              href={item.href}
+              className={cn(
+                "group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 transition-colors",
+                ACCENT,
+              )}
+            >
+              <span className="text-[13px] font-medium text-foreground/85 group-hover:text-white transition-colors">
+                {item.tag} {item.label}
+              </span>
+            </MegaLink>
+          ))}
+        </div>
+      </div>
+
+      {/* Col 2 — By Furniture */}
       <div>
         <MegaHeading>By Furniture</MegaHeading>
-        <ul className="space-y-0 list-none px-2.5 m-0">
-          {FURNITURE_ITEMS.map((item) => (
+        <ul className="space-y-[2px] list-none px-0 m-0">
+          {furnitureA.map((item) => (
+            <li key={item.label}>
+              <MegaLink href={item.href} className={linkCn}>
+                {item.label}
+              </MegaLink>
+            </li>
+          ))}
+          {furnitureB.map((item) => (
             <li key={item.label}>
               <MegaLink href={item.href} className={linkCn}>
                 {item.label}
@@ -91,16 +122,16 @@ function ShopContent() {
         </ul>
         <MegaLink
           href="/collections"
-          className="mt-2 flex items-center gap-1 py-1 text-[11px] text-muted-foreground hover:text-primary transition-colors"
+          className="mt-2 flex items-center gap-1 py-1 text-[11px] text-muted-foreground hover:text-primary transition-colors px-1"
         >
           View all <ArrowRight className="size-3" />
         </MegaLink>
       </div>
 
-      {/* Col 2 — By Room */}
+      {/* Col 3 — By Room */}
       <div>
         <MegaHeading>By Room</MegaHeading>
-        <ul className="space-y-0 list-none px-2.5 m-0">
+        <ul className="space-y-[2px] list-none px-0 m-0">
           {ROOM_ITEMS.map((item) => (
             <li key={item.label}>
               <MegaLink href={item.href} className={linkCn}>
@@ -110,112 +141,55 @@ function ShopContent() {
           ))}
         </ul>
       </div>
+    </div>
+  );
+}
 
-      {/* Col 3 — By Theme + Modular Kitchen CTA */}
-      <div className="flex flex-col">
-        <MegaHeading>By Theme</MegaHeading>
-        <ul className="space-y-0 list-none px-2.5 m-0 mb-6">
-          {THEME_ITEMS.map((item) => (
-            <li key={item.label}>
-              <MegaLink
-                href={item.href}
-                className="flex items-center gap-2 py-[5px]  text-[13px] text-foreground/75 hover:text-primary hover:bg-primary/5 transition-colors duration-150"
-              >
-                <span className="text-[11px] opacity-80">{item.tag}</span>
-                {item.label}
-              </MegaLink>
-            </li>
-          ))}
-        </ul>
-
-        {/* Modular Kitchen CTA card */}
-        <div className="mt-auto pt-4 border-t border-border/40">
+// ─── Card-grid mega-menu (Services / Discover / Company) ──────────────────────
+function SimpleContent({ links }: { links: NavLink[] }) {
+  return (
+    <div className="p-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {links.map((link) => (
           <MegaLink
-            href="#"
-            className="group flex items-start gap-3  border border-primary/20 bg-primary/5 p-3.5 hover:bg-primary/10 hover:border-primary/30 transition-colors"
+            key={link.label}
+            href={link.href}
+            className={cn(
+              "group flex flex-col gap-1.5 p-5 transition-colors",
+              ACCENT,
+            )}
           >
-            <Pencil className="mt-0.5 size-[15px] shrink-0 text-primary" />
-            <div className="min-w-0">
-              <p className="text-[12px] font-semibold text-primary">
-                Modular Kitchen
-              </p>
-              <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground">
-                Book a design appointment
-              </p>
-            </div>
-            <ArrowRight className="ml-auto mt-1 size-3 shrink-0 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
+            <span className="text-[14px] font-semibold text-foreground/85 group-hover:text-white transition-colors">
+              {link.label}
+            </span>
+            {link.description && (
+              <span className="text-[12px] leading-relaxed text-muted-foreground group-hover:text-white/60 transition-colors">
+                {link.description}
+              </span>
+            )}
           </MegaLink>
-        </div>
+        ))}
       </div>
     </div>
   );
 }
 
-// ─── Simple single-column mega-menu (Services / Discover / Company) ───────────
-function SimpleContent({ links }: { links: NavLink[] }) {
-  return (
-    <div className="p-3 w-[280px]">
-      <ul className="space-y-0.5 list-none px-3 m-0">
-        {links.map((link) => (
-          <li key={link.label}>
-            <MegaLink
-              href={link.href}
-              className={cn(
-                "flex flex-col gap-0.5 py-2.5 transition-colors",
-                link.cta
-                  ? "border border-primary/20 bg-primary/5 hover:bg-primary/10"
-                  : "hover:bg-muted/70",
-              )}
-            >
-              <span
-                className={cn(
-                  "text-[13px] font-medium leading-snug",
-                  link.cta ? "text-primary" : "text-foreground/85",
-                )}
-              >
-                {link.label}
-              </span>
-              {link.description && (
-                <span className="text-[11px] leading-relaxed text-muted-foreground">
-                  {link.description}
-                </span>
-              )}
-            </MegaLink>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-// ─── Shared content transition classes ───────────────────────────────────────
-const contentTransitionCn =
-  "transition-opacity duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0";
-
 // ─── Main Navigation ──────────────────────────────────────────────────────────
 export function Navigation() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuValue, setMenuValue] = useState<"" | "shop" | "services" | "discover" | "company">("");
 
-  const lastScrollY = useRef(0);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
   const isHomepage = pathname === "/";
 
   // ── Scroll handler ──
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 50);
-      if (currentScrollY > lastScrollY.current && currentScrollY > 120) {
-        setIsVisible(false);
-        setSearchOpen(false);
-      } else {
-        setIsVisible(true);
-      }
-      lastScrollY.current = currentScrollY;
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -233,14 +207,31 @@ export function Navigation() {
 
   const isTransparent = isHomepage && !isScrolled;
 
+  const openMenu = (val: typeof menuValue) => {
+    clearTimeout(closeTimer.current);
+    setMenuValue(val);
+  };
+
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setMenuValue(""), 100);
+  };
+
+  const cancelClose = () => {
+    clearTimeout(closeTimer.current);
+  };
+
   // ── Trigger button style ──
-  const triggerCn = cn(
-    "flex h-9 cursor-default select-none items-center gap-1.5  px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors",
-    "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-    isTransparent
-      ? "text-white/80 hover:text-white hover:bg-white/10 data-[popup-open]:bg-white/15 data-[popup-open]:text-white"
-      : "text-foreground/65 hover:text-foreground hover:bg-muted data-[popup-open]:bg-muted data-[popup-open]:text-foreground",
-  );
+  const triggerCn = (active: boolean) =>
+    cn(
+      "flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors outline-none",
+      isTransparent
+        ? active
+          ? "bg-white/15 text-white"
+          : "text-white/80 hover:text-white hover:bg-white/10"
+        : active
+          ? "bg-muted text-foreground"
+          : "text-foreground/65 hover:text-foreground hover:bg-muted",
+    );
 
   // ── Utility icon button style ──
   const iconCn = cn(
@@ -250,11 +241,17 @@ export function Navigation() {
       : "text-foreground/65 hover:text-foreground hover:bg-muted",
   );
 
+  const NAV_ITEMS = [
+    { key: "shop" as const, label: "Shop" },
+    { key: "services" as const, label: "Services" },
+    { key: "discover" as const, label: "Discover" },
+    { key: "company" as const, label: "Company" },
+  ];
+
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 flex w-full flex-col transition-all duration-500",
-        isVisible ? "translate-y-0" : "-translate-y-full",
+        "fixed top-0 left-0 right-0 z-40 flex w-full flex-col",
         isTransparent
           ? "border-transparent bg-transparent text-white"
           : "border-b border-border bg-background/95 shadow-sm backdrop-blur-md text-foreground",
@@ -268,95 +265,23 @@ export function Navigation() {
 
         {/* ── Desktop navigation ─────────────────────────────────────────── */}
         <div className="hidden flex-1 items-center mt-3 justify-between lg:flex">
-          {/* NavigationMenu with 4 groups */}
-          <NavigationMenu.Root
-            aria-label="Main navigation"
-            className="flex items-center"
-            delay={80}
-            closeDelay={100}
-          >
-            <NavigationMenu.List className="m-0 flex list-none items-center gap-0.5 p-0">
-              {/* SHOP ─────────────────────────────────────────────────────── */}
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className={triggerCn}>
-                  Shop
-                  <NavigationMenu.Icon className="transition-transform duration-200 data-[popup-open]:rotate-180">
-                    <ChevronDown className="size-3 opacity-70" />
-                  </NavigationMenu.Icon>
-                </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={contentTransitionCn}>
-                  <ShopContent />
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-
-              {/* SERVICES ───────────────────────────────────────────────── */}
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className={triggerCn}>
-                  Services
-                  <NavigationMenu.Icon className="transition-transform duration-200 data-[popup-open]:rotate-180">
-                    <ChevronDown className="size-3 opacity-70" />
-                  </NavigationMenu.Icon>
-                </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={contentTransitionCn}>
-                  <SimpleContent links={SERVICES_LINKS} />
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-
-              {/* DISCOVER ───────────────────────────────────────────────── */}
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className={triggerCn}>
-                  Discover
-                  <NavigationMenu.Icon className="transition-transform duration-200 data-[popup-open]:rotate-180">
-                    <ChevronDown className="size-3 opacity-70" />
-                  </NavigationMenu.Icon>
-                </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={contentTransitionCn}>
-                  <SimpleContent links={DISCOVER_LINKS} />
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-
-              {/* COMPANY ────────────────────────────────────────────────── */}
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className={triggerCn}>
-                  Company
-                  <NavigationMenu.Icon className="transition-transform duration-200 data-[popup-open]:rotate-180">
-                    <ChevronDown className="size-3 opacity-70" />
-                  </NavigationMenu.Icon>
-                </NavigationMenu.Trigger>
-                <NavigationMenu.Content className={contentTransitionCn}>
-                  <SimpleContent links={COMPANY_LINKS} />
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-            </NavigationMenu.List>
-
-            {/* Floating popup portal */}
-            <NavigationMenu.Portal>
-              <NavigationMenu.Positioner
-                sideOffset={10}
-                collisionPadding={{ top: 5, bottom: 5, left: 20, right: 20 }}
-                className={cn(
-                  "z-50 h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)]",
-                  "transition-[top,left,right,bottom] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-[instant]:transition-none",
-                  // hover bridge — prevents popup closing when cursor moves from trigger to popup
-                  "before:absolute before:content-[''] data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0 data-[side=bottom]:before:h-[10px]",
-                )}
+          <nav className="flex items-center gap-0.5">
+            {NAV_ITEMS.map(({ key, label }) => (
+              <button
+                key={key}
+                className={triggerCn(menuValue === key)}
+                onMouseEnter={() => openMenu(key)}
               >
-                <NavigationMenu.Popup
+                {label}
+                <ChevronDown
                   className={cn(
-                    "relative h-[var(--popup-height)] w-[var(--popup-width)] overflow-hidden outline-none",
-                    "border border-border/50 bg-background shadow-2xl shadow-black/8",
-                    "origin-[var(--transform-origin)]",
-                    "transition-[opacity,transform,width,height] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    "data-[starting-style]:scale-[0.96] data-[starting-style]:opacity-0 data-[starting-style]:-translate-y-1",
-                    "data-[ending-style]:scale-[0.96] data-[ending-style]:opacity-0 data-[ending-style]:-translate-y-1",
-                    "data-[ending-style]:duration-[140ms] data-[ending-style]:ease-[ease]",
+                    "size-3 opacity-70 transition-transform duration-200",
+                    menuValue === key && "rotate-180",
                   )}
-                >
-                  <NavigationMenu.Viewport className="relative h-full w-full overflow-hidden" />
-                </NavigationMenu.Popup>
-              </NavigationMenu.Positioner>
-            </NavigationMenu.Portal>
-          </NavigationMenu.Root>
+                />
+              </button>
+            ))}
+          </nav>
 
           {/* ── Utility area: inline search + icon buttons ─────────────── */}
           <div className="flex items-center gap-1">
@@ -636,6 +561,44 @@ export function Navigation() {
               >
                 <X className="size-4" />
               </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Backdrop overlay ─────────────────────────────────────────── */}
+      <AnimatePresence>
+        {menuValue && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-35 bg-black/20"
+            onClick={() => setMenuValue("")}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* ── Mega menu overlay ────────────────────────────────────────── */}
+      <AnimatePresence mode="wait">
+        {menuValue && (
+          <motion.div
+            key={menuValue}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-border bg-background shadow-2xl"
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+          >
+            <div className="mx-auto w-full max-w-[1600px]">
+              {menuValue === "shop" && <ShopContent />}
+              {menuValue === "services" && <SimpleContent links={SERVICES_LINKS} />}
+              {menuValue === "discover" && <SimpleContent links={DISCOVER_LINKS} />}
+              {menuValue === "company" && <SimpleContent links={COMPANY_LINKS} />}
             </div>
           </motion.div>
         )}

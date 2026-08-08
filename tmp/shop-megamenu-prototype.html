@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayoto Mega Menu — Prototype v2</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f5f3f0;
+    margin: 0;
+  }
+  .font-display { font-family: 'Crimson Pro', Georgia, serif; }
+
+  .mega-enter { opacity: 0; transform: translateY(-8px); }
+  .mega-active { opacity: 1; transform: translateY(0); transition: opacity 200ms ease, transform 200ms ease; }
+
+  .backdrop-enter { opacity: 0; }
+  .backdrop-active { opacity: 1; transition: opacity 200ms ease; }
+</style>
+</head>
+<body class="min-h-[200vh]">
+
+<!-- ======== BACKDROP ======== -->
+<div id="backdrop" class="fixed inset-0 z-35 bg-black/20 backdrop-enter hidden" onclick="closeAll()"></div>
+
+<!-- ======== NAVBAR ======== -->
+<header class="fixed top-0 left-0 right-0 z-40 flex w-full flex-col border-b border-black/10 bg-white/95 backdrop-blur-md shadow-sm">
+  <div class="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between gap-6 px-6">
+
+    <a href="/" class="shrink-0">
+      <span class="font-display text-2xl font-semibold tracking-wide">Ayoto</span>
+    </a>
+
+    <div class="hidden flex-1 items-center justify-between lg:flex">
+      <nav class="flex items-center gap-0.5">
+
+        <!-- SHOP -->
+        <button
+          data-menu="shop"
+          class="nav-btn flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors text-black/65 hover:text-black hover:bg-black/5 outline-none"
+          onmouseenter="openMenu('shop')"
+        >
+          Shop
+          <svg class="nav-chevron size-3 opacity-70 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- SERVICES -->
+        <button
+          data-menu="services"
+          class="nav-btn flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors text-black/65 hover:text-black hover:bg-black/5 outline-none"
+          onmouseenter="openMenu('services')"
+        >
+          Services
+          <svg class="nav-chevron size-3 opacity-70 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- DISCOVER -->
+        <button
+          data-menu="discover"
+          class="nav-btn flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors text-black/65 hover:text-black hover:bg-black/5 outline-none"
+          onmouseenter="openMenu('discover')"
+        >
+          Discover
+          <svg class="nav-chevron size-3 opacity-70 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- COMPANY -->
+        <button
+          data-menu="company"
+          class="nav-btn flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors text-black/65 hover:text-black hover:bg-black/5 outline-none"
+          onmouseenter="openMenu('company')"
+        >
+          Company
+          <svg class="nav-chevron size-3 opacity-70 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </nav>
+
+      <!-- Utility icons -->
+      <div class="flex items-center gap-1">
+        <button class="flex items-center justify-center p-2 text-black/65 hover:text-black hover:bg-black/5 transition-colors">
+          <svg class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="flex items-center justify-center p-2 text-black/65 hover:text-black hover:bg-black/5 transition-colors">
+          <svg class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </button>
+        <button class="flex items-center justify-center p-2 text-black/65 hover:text-black hover:bg-black/5 transition-colors">
+          <svg class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <button class="ml-auto flex items-center justify-center p-2 lg:hidden text-black/65">
+      <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- MEGA MENU PANELS                                              -->
+<!-- ============================================================ -->
+
+<!-- ── SHOP ── -->
+<div id="mega-shop" class="mega-enter hidden fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-black/10 bg-white shadow-2xl" onmouseleave="closeAll()">
+  <div class="mx-auto w-full max-w-[1600px]">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 p-10">
+      <!-- Featured -->
+      <div>
+        <p class="mb-4 px-1 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">Featured</p>
+        <div class="space-y-[2px]">
+          <a href="#" class="group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 transition-colors hover:bg-[#319093]"><span class="text-[13px] font-medium text-black/85 group-hover:text-white transition-colors">New Arrivals</span><span class="text-[11px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Fresh from the workshop</span></a>
+          <a href="#" class="group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 transition-colors hover:bg-[#319093]"><span class="text-[13px] font-medium text-black/85 group-hover:text-white transition-colors">Best Sellers</span><span class="text-[11px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Most loved pieces</span></a>
+          <a href="#" class="group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 transition-colors hover:bg-[#319093]"><span class="text-[13px] font-medium text-black/85 group-hover:text-white transition-colors">Classics</span><span class="text-[11px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Timeless essentials</span></a>
+        </div>
+      </div>
+      <!-- By Furniture -->
+      <div>
+        <p class="mb-4 px-1 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">By Furniture</p>
+        <ul class="space-y-[2px] list-none px-0 m-0">
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Sofa</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Divan</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Lounge Chair</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Center & Side Table</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">TV Cabinet</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Bed</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Dressing Unit</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Nightstand</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Dining Table</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Study Desk</a></li>
+        </ul>
+        <a href="#" class="mt-2 flex items-center gap-1 py-1 text-[11px] text-black/45 hover:text-black transition-colors px-1">View all <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+      <!-- By Room -->
+      <div>
+        <p class="mb-4 px-1 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">By Room</p>
+        <ul class="space-y-[2px] list-none px-0 m-0">
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Living Room</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Bedroom</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Kitchen + Dining</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Home Office</a></li>
+          <li><a href="#" class="group block px-2.5 py-[7px] text-[13px] text-black/75 hover:bg-[#319093] hover:text-white transition-colors leading-snug -mx-1">Entryway + Hallway</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<div id="mega-services" class="mega-enter hidden fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-black/10 bg-white shadow-2xl" onmouseleave="closeAll()">
+  <div class="mx-auto w-full max-w-[1600px] p-10">
+    <p class="mb-6 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">Services</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black group-hover:text-white transition-colors">Design Services</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Book an appointment or chat online with a designer</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Modular Kitchen</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Design a custom kitchen with our specialists</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Catalog</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Browse our full product catalog</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── DISCOVER ── -->
+<div id="mega-discover" class="mega-enter hidden fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-black/10 bg-white shadow-2xl" onmouseleave="closeAll()">
+  <div class="mx-auto w-full max-w-[1600px] p-10">
+    <p class="mb-6 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">Discover</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Inspiration</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Room ideas, style guides, and mood boards</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Showcase Events</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Upcoming trade shows and exhibitions</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Partnership</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Work with Ayoto as a business partner</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPANY ── -->
+<div id="mega-company" class="mega-enter hidden fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-black/10 bg-white shadow-2xl" onmouseleave="closeAll()">
+  <div class="mx-auto w-full max-w-[1600px] p-10">
+    <p class="mb-6 text-[11px] font-bold tracking-[0.12em] uppercase text-black/70">Company</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">About Us</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Our story, values, and craftsmanship</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Locations</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Find us in Dhaka</span>
+      </a>
+      <a href="#" class="group flex flex-col gap-1.5 p-5 transition-colors hover:bg-[#319093]">
+        <span class="text-[14px] font-semibold text-black/85 group-hover:text-white transition-colors">Contact</span>
+        <span class="text-[12px] leading-relaxed text-black/45 group-hover:text-white/60 transition-colors">Get in touch with our team</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ======== PAGE CONTENT ======== -->
+<div class="pt-[64px] px-6">
+  <div class="max-w-7xl mx-auto mt-20">
+    <h1 class="font-display text-5xl font-light tracking-tight text-black/80">Designed for Quiet Living</h1>
+    <p class="mt-4 text-lg text-black/45 max-w-xl">Hover any nav item — SHOP, SERVICES, DISCOVER, or COMPANY — to see the mega menu.</p>
+  </div>
+</div>
+
+<script>
+  const backdrop = document.getElementById('backdrop');
+  let activeMenu = null;
+  let closeTimer = null;
+
+  function openMenu(name) {
+    clearTimeout(closeTimer);
+    if (activeMenu === name) return;
+
+    // close current
+    if (activeMenu) {
+      hidePanel(activeMenu);
+      resetBtn(activeMenu);
+    }
+
+    // open new
+    activeMenu = name;
+    showPanel(name);
+    highlightBtn(name);
+  }
+
+  function closeAll() {
+    closeTimer = setTimeout(() => {
+      if (activeMenu) {
+        hidePanel(activeMenu);
+        resetBtn(activeMenu);
+        activeMenu = null;
+      }
+    }, 100);
+  }
+
+  function showPanel(name) {
+    const panel = document.getElementById('mega-' + name);
+    backdrop.classList.remove('hidden');
+    panel.classList.remove('hidden');
+    void panel.offsetWidth;
+    void backdrop.offsetWidth;
+    panel.classList.add('mega-active');
+    backdrop.classList.add('backdrop-active');
+  }
+
+  function hidePanel(name) {
+    const panel = document.getElementById('mega-' + name);
+    panel.classList.remove('mega-active');
+    backdrop.classList.remove('backdrop-active');
+    setTimeout(() => {
+      if (!panel.classList.contains('mega-active')) {
+        panel.classList.add('hidden');
+        if (!activeMenu) backdrop.classList.add('hidden');
+      }
+    }, 200);
+  }
+
+  function highlightBtn(name) {
+    const btn = document.querySelector('[data-menu="' + name + '"]');
+    if (btn) {
+      btn.classList.add('bg-black/5', 'text-black');
+      btn.querySelector('.nav-chevron').classList.add('rotate-180');
+    }
+  }
+
+  function resetBtn(name) {
+    const btn = document.querySelector('[data-menu="' + name + '"]');
+    if (btn) {
+      btn.classList.remove('bg-black/5', 'text-black');
+      btn.querySelector('.nav-chevron').classList.remove('rotate-180');
+    }
+  }
+
+  // re-open on panel hover (cancel close)
+  document.querySelectorAll('[id^="mega-"]').forEach(panel => {
+    panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+  });
+
+  // button hover
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      const name = btn.dataset.menu;
+      clearTimeout(closeTimer);
+      openMenu(name);
+    });
+  });
+</script>
+
+</body>
+</html>
