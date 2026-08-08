@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -87,7 +91,7 @@ export function UpperGrid() {
           }}
         >
           {item.type === "photo" && "src" in item && item.src && "productId" in item && item.productId ? (
-            <Link href={`/products/${item.productId}`} className="block w-full h-full">
+            <Link href={`/products/${item.productId}`} className="relative block w-full h-full">
               <Image
                 src={item.src}
                 alt={item.alt ?? ""}
