@@ -5,24 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/cart-context";
 import { cn } from "@/lib/utils";
 
-interface CartIconButtonProps {
-  /** Pass isTransparent from Navigation so icon adapts to hero overlay */
-  transparent?: boolean;
-}
-
-export function CartIconButton({ transparent = false }: CartIconButtonProps) {
+export function CartIconButton() {
   const { totalItems, openCart } = useCart();
 
   return (
     <button
       aria-label={`Cart${totalItems > 0 ? ` (${totalItems} items)` : ""}`}
       onClick={openCart}
-      className={cn(
-        "relative flex items-center justify-center  p-2 transition-colors",
-        transparent
-          ? "text-white/80 hover:text-white hover:bg-white/10"
-          : "text-foreground/65 hover:text-foreground hover:bg-muted"
-      )}
+      className="relative flex items-center justify-center  p-2 text-foreground/65 transition-colors hover:text-foreground"
     >
       <ShoppingCart className="size-[18px]" />
 

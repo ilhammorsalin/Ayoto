@@ -20,9 +20,7 @@ import {
   Heart,
   User,
   Menu,
-  ChevronDown,
   X,
-  ArrowRight,
 } from "lucide-react";
 import { CartIconButton } from "@/components/cart/cart-icon-button";
 import {
@@ -65,12 +63,12 @@ function MegaHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-const ACCENT = "hover:bg-[#319093] hover:text-white";
+const ACCENT = "hover:bg-black hover:text-white";
 
 // ─── Shop: 3-column mega-menu ─────────────────────────────────────────────────
 function ShopContent() {
   const linkCn = cn(
-    "group block px-2.5 py-[7px] text-[13px] text-foreground/75 transition-colors leading-snug -mx-1",
+    "group block px-2.5 py-[7px] text-[14px] text-foreground/75 leading-snug break-words -mx-1",
     ACCENT,
   );
 
@@ -89,11 +87,11 @@ function ShopContent() {
               key={item.label}
               href={item.href}
               className={cn(
-                "group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 transition-colors",
+                "group flex flex-col gap-0.5 px-2.5 py-3 -mx-1 break-words",
                 ACCENT,
               )}
             >
-              <span className="text-[13px] font-medium text-foreground/85 group-hover:text-white transition-colors">
+              <span className="text-[14px] font-medium text-foreground/85 group-hover:text-white">
                 {item.tag} {item.label}
               </span>
             </MegaLink>
@@ -101,18 +99,11 @@ function ShopContent() {
         </div>
       </div>
 
-      {/* Col 2 — By Furniture */}
-      <div>
+      {/* Col 2 — By Furniture (10 items) */}
+      <div className="border-x-2 border-border pl-6">
         <MegaHeading>By Furniture</MegaHeading>
         <ul className="space-y-[2px] list-none px-0 m-0">
-          {furnitureA.map((item) => (
-            <li key={item.label}>
-              <MegaLink href={item.href} className={linkCn}>
-                {item.label}
-              </MegaLink>
-            </li>
-          ))}
-          {furnitureB.map((item) => (
+          {[...furnitureA, ...furnitureB].map((item) => (
             <li key={item.label}>
               <MegaLink href={item.href} className={linkCn}>
                 {item.label}
@@ -120,12 +111,6 @@ function ShopContent() {
             </li>
           ))}
         </ul>
-        <MegaLink
-          href="/collections"
-          className="mt-2 flex items-center gap-1 py-1 text-[11px] text-muted-foreground hover:text-primary transition-colors px-1"
-        >
-          View all <ArrowRight className="size-3" />
-        </MegaLink>
       </div>
 
       {/* Col 3 — By Room */}
@@ -155,15 +140,15 @@ function SimpleContent({ links }: { links: NavLink[] }) {
             key={link.label}
             href={link.href}
             className={cn(
-              "group flex flex-col gap-1.5 p-5 transition-colors",
+              "group flex flex-col gap-1.5 p-5 break-words",
               ACCENT,
             )}
           >
-            <span className="text-[14px] font-semibold text-foreground/85 group-hover:text-white transition-colors">
+            <span className="text-[14px] font-semibold text-foreground/85 group-hover:text-white">
               {link.label}
             </span>
             {link.description && (
-              <span className="text-[12px] leading-relaxed text-muted-foreground group-hover:text-white/60 transition-colors">
+              <span className="text-[12px] leading-relaxed text-muted-foreground group-hover:text-white/60">
                 {link.description}
               </span>
             )}
@@ -176,30 +161,36 @@ function SimpleContent({ links }: { links: NavLink[] }) {
 
 // ─── Main Navigation ──────────────────────────────────────────────────────────
 export function Navigation() {
-  const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuValue, setMenuValue] = useState<"" | "shop" | "services" | "discover" | "company">("");
 
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
-  const isHomepage = pathname === "/";
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  // ── Scroll handler ──
+  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  const lastY = useRef(0);
+
+  // ── Hide on scroll down, show on scroll up (after 80px) ──
   useEffect(() => {
     let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
-          ticking = false;
-        });
-        ticking = true;
-      }
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y <= 80) setIsVisible(true);
+        else if (y > lastY.current) {
+          setIsVisible(false);
+          setMenuValue("");
+        } else setIsVisible(true);
+        lastY.current = y;
+        ticking = false;
+      });
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // ── Escape key closes search ──
@@ -211,8 +202,6 @@ export function Navigation() {
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [searchOpen]);
-
-  const isTransparent = isHomepage && !isScrolled;
 
   const openMenu = (val: typeof menuValue) => {
     clearTimeout(closeTimer.current);
@@ -230,23 +219,15 @@ export function Navigation() {
   // ── Trigger button style ──
   const triggerCn = (active: boolean) =>
     cn(
-      "flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors outline-none",
-      isTransparent
-        ? active
-          ? "bg-white/15 text-white"
-          : "text-white/80 hover:text-white hover:bg-white/10"
-        : active
-          ? "bg-muted text-foreground"
-          : "text-foreground/65 hover:text-foreground hover:bg-muted",
+      "flex h-9 cursor-default select-none items-center gap-1.5 px-3 text-sm font-semibold tracking-[0.09em] uppercase transition-colors outline-none underline-offset-8",
+      active
+        ? "text-foreground underline decoration-2"
+        : "text-foreground/65 hover:text-foreground hover:underline hover:decoration-2",
     );
 
   // ── Utility icon button style ──
-  const iconCn = cn(
-    "flex items-center justify-center  p-2 transition-colors",
-    isTransparent
-      ? "text-white/80 hover:text-white hover:bg-white/10"
-      : "text-foreground/65 hover:text-foreground hover:bg-muted",
-  );
+  const iconCn =
+    "flex items-center justify-center  p-2 text-foreground/65 transition-colors hover:text-foreground";
 
   const NAV_ITEMS = [
     { key: "shop" as const, label: "Shop" },
@@ -258,20 +239,28 @@ export function Navigation() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 flex w-full flex-col",
-        isTransparent
-          ? "border-transparent bg-transparent text-white"
-          : "border-b border-border bg-background/95 shadow-sm backdrop-blur-md text-foreground",
+        "fixed top-0 left-0 right-0 z-40 flex w-full flex-col border-b border-border bg-background text-foreground shadow-sm transition-transform duration-300",
+        isVisible ? "translate-y-0" : "-translate-y-full",
       )}
     >
-      <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between gap-6 px-5">
         {/* ── Logo ───────────────────────────────────────────────────────── */}
-        <NextLink href="/" className="shrink-0">
-          <Logo light={isTransparent} />
+        <NextLink
+          href="/"
+          className="shrink-0"
+          onClick={(e) => {
+            setMenuValue("");
+            if (pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+        >
+          <Logo />
         </NextLink>
 
         {/* ── Desktop navigation ─────────────────────────────────────────── */}
-        <div className="hidden flex-1 items-center mt-3 justify-between lg:flex">
+        <div className="hidden flex-1 items-center justify-between lg:flex">
           <nav className="flex items-center gap-0.5">
             {NAV_ITEMS.map(({ key, label }) => (
               <button
@@ -280,12 +269,6 @@ export function Navigation() {
                 onMouseEnter={() => openMenu(key)}
               >
                 {label}
-                <ChevronDown
-                  className={cn(
-                    "size-3 opacity-70 transition-transform duration-200",
-                    menuValue === key && "rotate-180",
-                  )}
-                />
               </button>
             ))}
           </nav>
@@ -303,9 +286,7 @@ export function Navigation() {
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   className={cn(
                     "flex h-9 items-center gap-2 overflow-hidden  px-3",
-                    isTransparent
-                      ? "bg-white/15 text-white ring-1 ring-white/20"
-                      : "bg-muted text-foreground ring-1 ring-border",
+                    "bg-muted text-foreground ring-1 ring-border",
                   )}
                 >
                   <Search className="size-[15px] shrink-0 opacity-50" />
@@ -346,7 +327,7 @@ export function Navigation() {
                   >
                     <Heart className="size-[18px]" />
                   </button>
-                  <CartIconButton transparent={isTransparent} />
+<CartIconButton />
                   <button aria-label="Account" className={iconCn}>
                     <User className="size-[18px]" />
                   </button>
@@ -365,7 +346,7 @@ export function Navigation() {
           >
             <Search className="size-5" />
           </button>
-          <CartIconButton transparent={isTransparent} />
+          <CartIconButton />
 
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger
@@ -550,9 +531,7 @@ export function Navigation() {
             <div
               className={cn(
                 "mx-4 mb-3 flex items-center gap-2  px-4 py-2",
-                isTransparent
-                  ? "bg-white/15 text-white ring-1 ring-white/20"
-                  : "bg-muted text-foreground",
+                "bg-muted text-foreground",
               )}
             >
               <Search className="size-4 shrink-0 opacity-50" />
@@ -574,42 +553,28 @@ export function Navigation() {
       </AnimatePresence>
 
       {/* ── Backdrop overlay ─────────────────────────────────────────── */}
-      <AnimatePresence>
-        {menuValue && (
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-35 bg-black/20"
-            onClick={() => setMenuValue("")}
-          />
-        )}
-      </AnimatePresence>
+      {menuValue && (
+        <div
+          className="fixed inset-x-0 top-[64px] bottom-0 z-35 bg-black/20"
+          onClick={() => setMenuValue("")}
+        />
+      )}
 
       {/* ── Mega menu overlay ────────────────────────────────────────── */}
-      <AnimatePresence mode="wait">
-        {menuValue && (
-          <motion.div
-            key={menuValue}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-[64px] left-0 z-50 w-screen h-[75vh] overflow-y-auto border-t border-border bg-background shadow-2xl"
-            onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
-          >
+      {menuValue && (
+        <div
+          className="fixed top-[64px] left-0 z-50 w-screen overflow-y-auto border-t border-border bg-background shadow-2xl"
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+        >
             <div className="mx-auto w-full max-w-[1600px]">
               {menuValue === "shop" && <ShopContent />}
               {menuValue === "services" && <SimpleContent links={SERVICES_LINKS} />}
               {menuValue === "discover" && <SimpleContent links={DISCOVER_LINKS} />}
               {menuValue === "company" && <SimpleContent links={COMPANY_LINKS} />}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </header>
   );
 }
