@@ -1,13 +1,19 @@
 import { HomeWrapper } from "@/components/home-wrapper";
 import { Hero } from "@/components/hero";
-import { CollectionsGrid } from "@/components/collections-grid";
+import { CategoriesSection } from "@/components/home/categories-section";
+import { NewItemsSection } from "@/components/home/new-items-section";
+import { ShopTheLookSection } from "@/components/home/shop-the-look-section";
+import { TrendingSection } from "@/components/home/trending-section";
 
 export default function Home() {
   return (
     <HomeWrapper>
       <div className="w-full flex flex-col">
         <Hero />
-        <CollectionsGrid />
+        <CategoriesSection />
+        <NewItemsSection />
+        <ShopTheLookSection />
+        <TrendingSection />
       </div>
     </HomeWrapper>
   );
