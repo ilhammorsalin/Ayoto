@@ -30,19 +30,14 @@ export function ShopTheLookSection() {
   const [activeHotspot, setActiveHotspot] = useState<number | null>(null);
 
   return (
-    <section className="w-full bg-[#E0AFA0] py-0">
-      <div className="w-full px-6 md:px-12 flex flex-col gap-0">
+    <section className="w-full bg-[#E0AFA0] py-8">
+      <div className="w-full px-2 md:px-4 flex flex-col gap-4">
         <div className="flex flex-col items-center justify-center text-center">
 
-          <div className="relative inline-flex items-center justify-center mb-8 px-4 py-4">
+          <div className="relative inline-flex items-center justify-center mb-0 px-4 py-4">
             <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#463F3A] text-center">
               Shop the <span className="italic font-bold text-[#F4F3EE]">Look</span>
             </h2>
-            {/* Frame 6 commented out
-            <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-              <Image src="/Frame 6.png" alt="" fill className="object-contain grayscale opacity-20 scale-[1.8] md:scale-[2.2]" />
-            </div>
-            */}
           </div>
         </div>
 
@@ -84,10 +79,10 @@ export function ShopTheLookSection() {
         </div>
 
         {/* Catalogue Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {catalogue.map((item, idx) => (
             <Link href="#" key={idx} className="bg-white p-4 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative aspect-square mb-4 bg-[#F4F3EE] overflow-hidden">
+              <div className="relative aspect-square mb-2 bg-[#F4F3EE] overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.name}

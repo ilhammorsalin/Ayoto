@@ -17,31 +17,17 @@ const categories = [
 
 export function CategoriesSection() {
   return (
-    <section className="w-full bg-background py-20">
-      <div className="w-full px-6 md:px-12">
-        <div className="flex flex-col items-center justify-center text-center mb-16">
-          <span className="text-[#8A817C] text-sm font-semibold tracking-wider uppercase mb-4 block">
-            Curated Environments
-          </span>
-          <div className="relative inline-flex items-center justify-center mb-8 px-4 py-4">
+    <section className="w-full bg-background py-8">
+      <div className="w-full px-2 md:px-4">
+        <div className="flex flex-col items-center justify-center text-center mb-4">
+          <div className="relative inline-flex items-center justify-center px-4 py-4">
             <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#463F3A] text-center">
               Browse by <span className="italic font-bold">Category</span>
             </h2>
-            {/* Frame 4 commented out
-            <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-              <Image src="/Frame 4.png" alt="" fill className="object-contain grayscale opacity-20 scale-[1.8] md:scale-[2.2]" />
-            </div>
-            */}
           </div>
-          <Link 
-            href="/collections" 
-            className="text-[#E0AFA0] hover:text-[#463F3A] transition-colors font-medium"
-          >
-            View All Spaces &rarr;
-          </Link>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {categories.map((category) => (
             <Link 
               key={category.name} 
