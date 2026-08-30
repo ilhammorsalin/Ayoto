@@ -61,9 +61,11 @@ export function TrendingSection() {
             <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#F4F3EE] text-center">
               Trending <span className="italic font-bold text-[#E0AFA0]">Pieces</span>
             </h2>
+            {/* Frame 7 commented out
             <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
               <Image src="/Frame 7.png" alt="" fill className="object-contain grayscale invert opacity-20 scale-[1.8] md:scale-[2.2]" />
             </div>
+            */}
           </div>
           <Link 
             href="/collections" 

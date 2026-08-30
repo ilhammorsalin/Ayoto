@@ -46,7 +46,7 @@ const products = [
 
 export function NewItemsSection() {
   return (
-    <section className="w-full bg-white py-20">
+    <section className="w-full bg-white py-6">
       <div className="w-full px-6 md:px-12">
         <div className="flex flex-col items-center justify-center text-center mb-16">
           <span className="text-[#E0AFA0] text-sm font-semibold tracking-wider uppercase mb-4 block">
@@ -56,9 +56,11 @@ export function NewItemsSection() {
             <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#463F3A] text-center">
               New <span className="italic font-bold">Items</span>
             </h2>
+            {/* Frame 5 commented out
             <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
               <Image src="/Frame 5.png" alt="" fill className="object-contain grayscale opacity-20 scale-[1.8] md:scale-[2.2]" />
             </div>
+            */}
           </div>
           <Link
             href="/collections"

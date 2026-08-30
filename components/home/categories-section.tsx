@@ -27,9 +27,11 @@ export function CategoriesSection() {
             <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#463F3A] text-center">
               Browse by <span className="italic font-bold">Category</span>
             </h2>
+            {/* Frame 4 commented out
             <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
               <Image src="/Frame 4.png" alt="" fill className="object-contain grayscale opacity-20 scale-[1.8] md:scale-[2.2]" />
             </div>
+            */}
           </div>
           <Link 
             href="/collections" 
