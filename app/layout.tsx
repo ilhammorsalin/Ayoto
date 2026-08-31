@@ -26,6 +26,46 @@ const montserratExtraLight = localFont({
   display: "swap",
 });
 
+const bodoniRegular = localFont({
+  src: "../public/fonts/Bodoni-Regular.ttf",
+  variable: "--font-bodoni-regular",
+  display: "swap",
+});
+
+const bodoni = localFont({
+  src: [
+    {
+      path: "../public/fonts/Bodoni-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Bodoni-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Bodoni-BoldItalic.otf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-bodoni",
+  display: "swap",
+});
+
+const bodoniBold = localFont({
+  src: "../public/fonts/Bodoni-Bold.otf",
+  variable: "--font-bodoni-bold",
+  display: "swap",
+});
+
+const bodoniItalic = localFont({
+  src: "../public/fonts/Bodoni-BoldItalic.otf",
+  variable: "--font-bodoni-italic",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Ayoto — Designed for Quiet Living",
   description: "Dhaka-based furniture inspired by Japanese minimalism, timeless craftsmanship, and natural materials.",
@@ -46,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${crimsonPro.variable} ${overcame.variable} ${montserratExtraLight.variable} h-full antialiased`}
+      className={`${crimsonPro.variable} ${overcame.variable} ${montserratExtraLight.variable} ${bodoniRegular.variable} ${bodoni.variable} ${bodoniBold.variable} ${bodoniItalic.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />

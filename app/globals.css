@@ -4,12 +4,40 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'BodoniRegular';
+  src: url('/fonts/Bodoni-Regular.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BodoniBold';
+  src: url('/fonts/Bodoni-Bold.otf') format('opentype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BodoniItalic';
+  src: url('/fonts/Bodoni-BoldItalic.otf') format('opentype');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   /* === Font Families === */
   --font-serif: var(--font-crimson-pro);
   --font-sans: Satoshi, var(--font-satoshi), sans-serif;
   --font-overcame: var(--font-overcame);
   --font-montserrat-el: var(--font-montserrat-el);
+  --font-bodoni: var(--font-bodoni-regular), 'BodoniRegular', serif;
+  --font-bodoni-regular: var(--font-bodoni-regular), 'BodoniRegular', serif;
+  --font-bodoni-bold: var(--font-bodoni-bold), 'BodoniBold', serif;
+  --font-bodoni-italic: var(--font-bodoni-italic), 'BodoniItalic', serif;
 
   /* Animation tokens */
   --animate-fade-in: fade-in 0.6s ease-out;

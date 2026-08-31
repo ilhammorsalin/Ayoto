@@ -10,7 +10,7 @@ const slides = [
     bg: "bg-[#463F3A]",
     text: "text-[#F4F3EE]",
     eyebrow: "Collection 2026",
-    headline: <>Timeless <span className="italic text-[#E0AFA0]">Craft</span></>,
+    headline: "Timeless Craft",
     subtext: "Discover pieces that transcend trends and define quiet living.",
     ctaText: "Shop Collection",
     ctaLink: "/collections",
@@ -20,7 +20,7 @@ const slides = [
     bg: "bg-[#E0AFA0]",
     text: "text-[#463F3A]",
     eyebrow: "Our Ethos",
-    headline: <>Natural <span className="italic text-white">Harmony</span></>,
+    headline: "Natural Harmony",
     subtext: "Materials sourced with intention for your sanctuary.",
     ctaText: "Our Story",
     ctaLink: "/about",
@@ -30,7 +30,7 @@ const slides = [
     bg: "bg-[#BCB8B1]",
     text: "text-[#463F3A]",
     eyebrow: "Curation",
-    headline: <>Quiet <span className="italic text-[#F4F3EE]">Spaces</span></>,
+    headline: "Quiet Spaces",
     subtext: "Furniture designed to foster reflection and calm.",
     ctaText: "View Lookbook",
     ctaLink: "/collections",
@@ -40,7 +40,7 @@ const slides = [
     bg: "bg-[#8A817C]",
     text: "text-[#F4F3EE]",
     eyebrow: "The Workshop",
-    headline: <>Modern <span className="italic text-[#F4F3EE]">Heritage</span></>,
+    headline: "Modern Heritage",
     subtext: "Generations of woodworking expertise, reimagined.",
     ctaText: "Meet the Makers",
     ctaLink: "/about",
@@ -72,7 +72,7 @@ export function Hero() {
       </div>
 
       {/* RIGHT COLUMN: Perfect square */}
-      <div 
+      <div
         onClick={handleNextSlide}
         className={`w-full aspect-square md:w-auto md:h-full md:aspect-square flex-shrink-0 p-4 md:p-6 cursor-pointer select-none transition-colors duration-0 ${active.bg} ${active.text}`}
       >
@@ -81,7 +81,7 @@ export function Hero() {
             <span className="block mb-4 text-[10px] uppercase tracking-[0.2em] font-bold opacity-80">
               {active.eyebrow}
             </span>
-            <h1 className="font-serif text-[40px] md:text-[60px] lg:text-[70px] font-normal leading-[0.9] tracking-tight mb-4">
+            <h1 className="font-bodoni-bold uppercase tracking-wider text-[46px] md:text-[66px] lg:text-[78px] leading-[0.9] mb-4">
               {active.headline}
             </h1>
             <p className="text-sm opacity-90 mb-8 leading-relaxed">
@@ -98,8 +98,8 @@ export function Hero() {
             {/* Slide indicators */}
             <div className="flex gap-2 mt-12">
               {slides.map((_, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`h-1 ${idx === currentSlide ? "w-6 bg-current opacity-100" : "w-2 bg-current opacity-30"}`}
                 />
               ))}

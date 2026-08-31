@@ -46,13 +46,41 @@ const products = [
 
 export function NewItemsSection() {
   return (
-    <section className="w-full bg-white py-8">
+    <section className="w-full bg-white py-2">
       <div className="w-full px-2 md:px-4">
-        <div className="flex flex-col items-center justify-center text-center mb-4">
-          <div className="relative inline-flex items-center justify-center px-4 py-4">
-            <h2 className="relative z-10 text-[35px] md:text-[50px] lg:text-[60px] leading-[0.9] font-serif text-[#463F3A] text-center">
-              New <span className="italic font-bold">Items</span>
+        <div className="flex flex-col items-center justify-center text-center mb-2 text-[#463F3A]">
+          <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-4">
+            <span
+              className="w-8 h-6 sm:w-10 sm:h-8 md:w-14 md:h-10 bg-current shrink-0"
+              style={{
+                maskImage: "url('/left.png')",
+                maskSize: "contain",
+                maskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskImage: "url('/left.png')",
+                WebkitMaskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+              }}
+              aria-hidden="true"
+            />
+            <h2 className="relative z-10 text-[42px] md:text-[58px] lg:text-[70px] leading-[0.9] font-bodoni-bold uppercase tracking-wider text-center">
+              New Items
             </h2>
+            <span
+              className="w-8 h-6 sm:w-10 sm:h-8 md:w-14 md:h-10 bg-current shrink-0"
+              style={{
+                maskImage: "url('/right.png')",
+                maskSize: "contain",
+                maskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskImage: "url('/right.png')",
+                WebkitMaskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+              }}
+              aria-hidden="true"
+            />
           </div>
         </div>
 
