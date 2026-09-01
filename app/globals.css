@@ -34,6 +34,7 @@
   --font-sans: Satoshi, var(--font-satoshi), sans-serif;
   --font-overcame: var(--font-overcame);
   --font-montserrat-el: var(--font-montserrat-el);
+  --font-euro: var(--font-euro), 'EUR42', sans-serif;
   --font-bodoni: var(--font-bodoni-regular), 'BodoniRegular', serif;
   --font-bodoni-regular: var(--font-bodoni-regular), 'BodoniRegular', serif;
   --font-bodoni-bold: var(--font-bodoni-bold), 'BodoniBold', serif;

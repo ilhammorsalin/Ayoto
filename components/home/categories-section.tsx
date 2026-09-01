@@ -22,7 +22,7 @@ export function CategoriesSection() {
         <div className="flex flex-col items-center justify-center text-center mb-2 text-[#463F3A]">
           <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-4">
             <span
-              className="w-8 h-6 sm:w-10 sm:h-8 md:w-14 md:h-10 bg-current shrink-0"
+              className="w-4 h-3 sm:w-5 sm:h-4 md:w-7 md:h-5 bg-current shrink-0"
               style={{
                 maskImage: "url('/left.png')",
                 maskSize: "contain",
@@ -35,11 +35,11 @@ export function CategoriesSection() {
               }}
               aria-hidden="true"
             />
-            <h2 className="relative z-10 text-[42px] md:text-[58px] lg:text-[70px] leading-[0.9] font-bodoni-bold uppercase tracking-wider text-center">
+            <h2 className="relative z-10 text-[32px] md:text-[44px] lg:text-[52px] leading-[0.9] font-euro uppercase tracking-wider text-center">
               Browse by Category
             </h2>
             <span
-              className="w-8 h-6 sm:w-10 sm:h-8 md:w-14 md:h-10 bg-current shrink-0"
+              className="w-4 h-3 sm:w-5 sm:h-4 md:w-7 md:h-5 bg-current shrink-0"
               style={{
                 maskImage: "url('/right.png')",
                 maskSize: "contain",

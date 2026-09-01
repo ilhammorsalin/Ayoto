@@ -81,7 +81,7 @@ export function Hero() {
             <span className="block mb-4 text-[10px] uppercase tracking-[0.2em] font-bold opacity-80">
               {active.eyebrow}
             </span>
-            <h1 className="font-bodoni-bold uppercase tracking-wider text-[46px] md:text-[66px] lg:text-[78px] leading-[0.9] mb-4">
+            <h1 className="font-euro uppercase tracking-wider text-[34px] md:text-[50px] lg:text-[58px] leading-[0.9] mb-4">
               {active.headline}
             </h1>
             <p className="text-sm opacity-90 mb-8 leading-relaxed">

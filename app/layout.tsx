@@ -26,6 +26,12 @@ const montserratExtraLight = localFont({
   display: "swap",
 });
 
+const euro = localFont({
+  src: "../Assets/eur42/EUR42.otf",
+  variable: "--font-euro",
+  display: "swap",
+});
+
 const bodoniRegular = localFont({
   src: "../public/fonts/Bodoni-Regular.ttf",
   variable: "--font-bodoni-regular",
@@ -86,7 +92,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${crimsonPro.variable} ${overcame.variable} ${montserratExtraLight.variable} ${bodoniRegular.variable} ${bodoni.variable} ${bodoniBold.variable} ${bodoniItalic.variable} h-full antialiased`}
+      className={`${crimsonPro.variable} ${overcame.variable} ${montserratExtraLight.variable} ${euro.variable} ${bodoniRegular.variable} ${bodoni.variable} ${bodoniBold.variable} ${bodoniItalic.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
