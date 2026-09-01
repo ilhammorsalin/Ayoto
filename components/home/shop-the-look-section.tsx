@@ -82,11 +82,8 @@ export function ShopTheLookSection() {
   const activeItem = hotspots.find((spot) => spot.id === activeHotspotId);
 
   return (
-    <section
-      className="w-full bg-[#E0AFA0] py-4 md:py-6"
-      onMouseLeave={() => setActiveHotspotId(null)}
-    >
-      <div className="w-full px-2 md:px-4 flex flex-col gap-4">
+    <section className="w-full bg-[#E0AFA0] py-4 md:py-6">
+      <div className="w-full px-0 flex flex-col gap-4">
         {/* Section Heading */}
         <div className="flex flex-col items-center justify-center text-center text-[#463F3A]">
           <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-2">
@@ -185,16 +182,16 @@ export function ShopTheLookSection() {
           </div>
 
           {/* Right Column: Full Details of Highlighted Item */}
-          <div className="lg:col-span-4 flex flex-col">
-            <div className="w-full h-full bg-white p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-sm relative overflow-hidden">
+          <div className="lg:col-span-4 flex flex-col h-full min-h-[420px] lg:min-h-0">
+            <div className="w-full h-full bg-white p-4 sm:p-5 md:p-6 flex flex-col justify-between shadow-sm relative overflow-hidden">
               <AnimatePresence mode="wait">
                 {activeItem ? (
                   <motion.div
                     key={activeItem.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
                     className="flex flex-col h-full justify-between gap-3"
                   >
                     {/* Top Meta */}
@@ -208,49 +205,44 @@ export function ShopTheLookSection() {
                         </span>
                       </div>
 
-                      <h3 className="font-serif text-2xl lg:text-3xl text-[#463F3A] leading-tight">
-                        {activeItem.name}
-                      </h3>
-                      <p className="text-xs text-[#8A817C] mt-1 font-medium">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <h3 className="font-serif text-xl sm:text-2xl text-[#463F3A] leading-tight truncate">
+                          {activeItem.name}
+                        </h3>
+                        <span className="text-lg sm:text-xl font-bold font-serif text-[#463F3A] shrink-0">
+                          {activeItem.price}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#8A817C] mt-0.5 font-medium">
                         Finish: {activeItem.material}
                       </p>
                     </div>
 
-                    {/* Product Photo Showcase */}
-                    <div className="relative aspect-[4/3] w-full bg-[#F4F3EE] overflow-hidden my-1">
+                    {/* Product Photo Showcase - Expanded to fill border */}
+                    <div className="relative flex-1 w-full min-h-[150px] sm:min-h-[180px] bg-[#F4F3EE] overflow-hidden my-1">
                       <Image
                         src={activeItem.image}
                         alt={activeItem.name}
                         fill
-                        className="object-contain p-4 mix-blend-multiply transition-transform duration-500 hover:scale-105"
+                        className="object-cover transition-none"
                         sizes="(max-width: 1024px) 100vw, 33vw"
                       />
                     </div>
 
-                    {/* Description & Price */}
-                    <div className="space-y-2">
-                      <p className="text-xs md:text-sm text-[#8A817C] leading-relaxed line-clamp-2">
+                    {/* Description & Action */}
+                    <div className="space-y-3">
+                      <p className="text-xs text-[#8A817C] leading-relaxed line-clamp-2">
                         {activeItem.description}
                       </p>
 
-                      <div className="flex items-baseline justify-between pt-1">
-                        <span className="text-xs uppercase tracking-wider text-[#8A817C] font-semibold">
-                          Price
-                        </span>
-                        <span className="text-2xl font-bold font-serif text-[#463F3A]">
-                          {activeItem.price}
-                        </span>
-                      </div>
+                      <Link
+                        href={activeItem.href}
+                        className="w-full inline-flex items-center justify-center gap-2 bg-[#463F3A] text-white py-2.5 sm:py-3 px-4 text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#2d2825] transition-colors group"
+                      >
+                        <span>Explore Piece</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
                     </div>
-
-                    {/* Action Button */}
-                    <Link
-                      href={activeItem.href}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-[#463F3A] text-white py-3 px-4 text-xs md:text-sm font-semibold tracking-wider uppercase hover:bg-[#2d2825] transition-colors group mt-1"
-                    >
-                      <span>Explore Piece</span>
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -258,15 +250,15 @@ export function ShopTheLookSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="flex flex-col items-center justify-center text-center h-full min-h-[320px] lg:min-h-0 py-8 px-4 gap-5"
+                    transition={{ duration: 0.15 }}
+                    className="flex flex-col items-center justify-center text-center h-full w-full py-8 px-4 gap-5"
                   >
                     <div className="space-y-4 max-w-sm flex flex-col items-center">
                       <h4 className="font-euro uppercase tracking-wider text-[32px] sm:text-[42px] lg:text-[48px] text-[#463F3A] leading-[0.9] flex flex-col items-center gap-1">
                         <span>Interactive</span>
                         <span>Lookbook</span>
                       </h4>
-                      <p className="text-sm sm:text-base lg:text-lg text-[#8A817C] leading-relaxed font-light max-w-xs">
+                      <p className="text-sm sm:text-base text-[#8A817C] leading-relaxed font-light max-w-xs">
                         Hover over any numbered pin on the room image to view
                         specifications, materials, and pricing.
                       </p>

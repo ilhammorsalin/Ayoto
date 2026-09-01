@@ -47,7 +47,7 @@ const products = [
 export function NewItemsSection() {
   return (
     <section className="w-full bg-white py-2">
-      <div className="w-full px-2 md:px-4">
+      <div className="w-full px-0">
         <div className="flex flex-col items-center justify-center text-center mb-2 text-[#463F3A]">
           <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-4">
             <span
@@ -84,7 +84,7 @@ export function NewItemsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="mb-4 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
           {products.map((product) => (
             <Link
               key={product.id}
@@ -97,27 +97,26 @@ export function NewItemsSection() {
                   alt={product.name}
                   fill
                   className="object-cover transition-none group-hover:scale-105 group-hover:opacity-0"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
                 />
                 <Image
                   src={product.imageAlt}
                   alt={`${product.name} alternate`}
                   fill
                   className="object-cover transition-none opacity-0 group-hover:opacity-100 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className="absolute top-4 left-4 bg-white px-3 py-1 text-xs font-bold tracking-wider uppercase text-[#463F3A]">
+                <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-white px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[#463F3A]">
                   New
                 </div>
               </div>
-              <div className="flex flex-col gap-0">
-                <span className="text-[#8A817C] text-xs font-semibold tracking-wider uppercase">
+              <div className="mt-1.5 px-2 sm:px-3 flex items-baseline justify-between gap-2">
+                <h3 className="font-serif text-base sm:text-xl md:text-2xl text-[#463F3A] leading-none text-left truncate">
+                  {product.name}
+                </h3>
+                <span className="text-[#8A817C]/50 text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase select-none leading-none shrink-0 text-right">
                   {product.category}
                 </span>
-                <div className="flex justify-between items-center mt-0">
-                  <h3 className="font-serif text-2xl text-[#463F3A]">
-                    {product.name}
-                  </h3>
-                  <span className="text-[#463F3A] font-medium">{product.price}</span>
-                </div>
               </div>
             </Link>
           ))}

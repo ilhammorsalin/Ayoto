@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState, MouseEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CubicaImg from '@/Assets/Furniture/Center table/Cubica.png';
@@ -50,9 +53,42 @@ const trendingProducts = [
 ];
 
 export function TrendingSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [hasDragged, setHasDragged] = useState(false);
+
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    setIsDown(true);
+    setHasDragged(false);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeftState(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDown(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+  };
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDown || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(x - startX) > 6) {
+      setHasDragged(true);
+    }
+    containerRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
   return (
-    <section className="w-full bg-[#463F3A] py-2">
-      <div className="w-full px-2 md:px-4">
+    <section className="w-full bg-[#463F3A] py-4 md:py-6">
+      <div className="w-full px-0">
         <div className="flex flex-col items-center justify-center text-center mb-2 text-[#F4F3EE]">
           <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-4">
             <span
@@ -89,29 +125,47 @@ export function TrendingSection() {
           </div>
         </div>
 
-        {/* Horizontal scrollable flex container for trending products */}
-        <div className="flex overflow-x-auto gap-2 pb-8 snap-x snap-mandatory hide-scrollbar">
+        {/* Horizontal draggable flex container for trending products */}
+        <div
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className={`flex overflow-x-auto gap-2 pb-6 hide-scrollbar select-none ${
+            isDown ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {trendingProducts.map((product) => (
             <Link
               href={`/products/${product.id}`}
               key={product.id}
-              className="group flex-none w-[280px] md:w-[350px] snap-start"
+              onClick={(e) => {
+                if (hasDragged) {
+                  e.preventDefault();
+                }
+              }}
+              className="group flex-none w-[280px] md:w-[350px] pointer-events-auto"
+              draggable={false}
             >
               <div className="relative aspect-square w-full overflow-hidden bg-[#F4F3EE] mb-2">
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
+                  draggable={false}
                   className="object-cover transition-none group-hover:scale-105 group-hover:opacity-0"
                 />
                 <Image
                   src={product.imageAlt}
                   alt={`${product.name} alternate`}
                   fill
+                  draggable={false}
                   className="object-cover transition-none opacity-0 group-hover:opacity-100 group-hover:scale-105"
                 />
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 px-2 sm:px-3">
                 <span className="text-[#8A817C] text-xs font-semibold tracking-wider uppercase">
                   {product.category}
                 </span>

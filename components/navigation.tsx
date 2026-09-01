@@ -159,11 +159,33 @@ function SimpleContent({ links }: { links: NavLink[] }) {
   );
 }
 
+const PROMO_MESSAGES = [
+  {
+    id: 1,
+    text: "Complimentary White Glove Delivery on orders over $2,000",
+    link: "/collections/sofas",
+    bg: "bg-[#463F3A] text-[#F4F3EE]",
+  },
+  {
+    id: 2,
+    text: "Spring Curation 2026 — Handcrafted pieces with intentional materials",
+    link: "/collections/beds",
+    bg: "bg-[#E0AFA0] text-[#463F3A]",
+  },
+  {
+    id: 3,
+    text: "Visit the Dhaka Experience Studio — Book your design consultation",
+    link: "/about",
+    bg: "bg-[#BCB8B1] text-[#463F3A]",
+  },
+];
+
 // ─── Main Navigation ──────────────────────────────────────────────────────────
 export function Navigation() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuValue, setMenuValue] = useState<"" | "shop" | "services" | "discover" | "company">("");
+  const [promoIndex, setPromoIndex] = useState(0);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -171,6 +193,17 @@ export function Navigation() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
   const lastY = useRef(0);
+
+  // ── 5s Promotional strip timer ──
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPromoIndex((prev) => (prev + 1) % PROMO_MESSAGES.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const activePromo = PROMO_MESSAGES[promoIndex];
 
   // ── Hide on scroll down, show on scroll up (after 80px) ──
   useEffect(() => {
@@ -243,6 +276,32 @@ export function Navigation() {
         isVisible ? "translate-y-0" : "-translate-y-full",
       )}
     >
+      {/* ── Top Promotional Announcement Strip ───────────────────────── */}
+      <div
+        className={cn(
+          "w-full h-[32px] flex items-center justify-center overflow-hidden px-4 text-center transition-colors duration-700 select-none",
+          activePromo.bg,
+        )}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePromo.id}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full flex items-center justify-center"
+          >
+            <NextLink
+              href={activePromo.link}
+              className="text-[10px] sm:text-[11px] font-medium tracking-[0.15em] uppercase hover:opacity-80 transition-opacity truncate max-w-full px-2"
+            >
+              {activePromo.text}
+            </NextLink>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
       <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between gap-6 px-5">
         {/* ── Logo ───────────────────────────────────────────────────────── */}
         <NextLink
@@ -555,7 +614,7 @@ export function Navigation() {
       {/* ── Backdrop overlay ─────────────────────────────────────────── */}
       {menuValue && (
         <div
-          className="fixed inset-x-0 top-[64px] bottom-0 z-35 bg-black/20"
+          className="fixed inset-x-0 top-[96px] bottom-0 z-35 bg-black/20"
           onClick={() => setMenuValue("")}
         />
       )}
@@ -563,7 +622,7 @@ export function Navigation() {
       {/* ── Mega menu overlay ────────────────────────────────────────── */}
       {menuValue && (
         <div
-          className="fixed top-[64px] left-0 z-50 w-screen overflow-y-auto border-t border-border bg-background shadow-2xl"
+          className="fixed top-[96px] left-0 z-50 w-screen overflow-y-auto border-t border-border bg-background shadow-2xl"
           onMouseEnter={cancelClose}
           onMouseLeave={scheduleClose}
         >

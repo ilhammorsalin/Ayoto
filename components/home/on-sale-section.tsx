@@ -4,7 +4,7 @@ import MonacoImg from '@/Assets/Furniture/sofas/Monaco (Single Seater).png';
 export function OnSaleSection() {
   return (
     <section className="w-full bg-[#F4F3EE] py-4 md:py-6">
-      <div className="w-full px-2 md:px-4 flex flex-col gap-4">
+      <div className="w-full px-0 flex flex-col gap-4">
         {/* Section Header */}
         <div className="flex flex-col items-center justify-center text-center text-[#463F3A]">
           <div className="relative inline-flex items-center justify-center gap-2 sm:gap-4 md:gap-6 px-4 py-2 md:py-4">

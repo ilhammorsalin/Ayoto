@@ -102,7 +102,7 @@ export default function RootLayout({
         <CartProvider>
           <Navigation />
           <CartPanel />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow pt-[96px]">{children}</main>
           <Footer />
         </CartProvider>
         {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (

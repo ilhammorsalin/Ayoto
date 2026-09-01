@@ -65,7 +65,7 @@ export default function CheckoutPage() {
   const total    = subtotal + shipping + tax;
 
   return (
-    <div className="min-h-screen bg-background pt-[64px]">
+    <div className="min-h-screen bg-background pt-0">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:py-16">
 
         {/* Back link */}
